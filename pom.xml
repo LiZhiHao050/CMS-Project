@@ -235,6 +235,14 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
+		
+		<!-- 导入自己的工具包 -->
+		<dependency>
+			<groupId>com.bw.utils</groupId>
+			<artifactId>CMS-Common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 

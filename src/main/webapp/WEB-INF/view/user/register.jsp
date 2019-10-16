@@ -107,7 +107,7 @@
 					username : {
 						required : true,
 						minlength : 2,
-						remote:"/user/check",//校验用户唯一性
+						remote:"/user/checkExist",//校验用户唯一性
 					},
 					password : {
 						required : true,
@@ -125,7 +125,7 @@
 					username : {
 						required : "请输入用户名",
 						minlength : "用户名长度至少两个",
-						remote:"用户已被注册",
+						remote : "用户已被注册",
 						
 					},
 					password: {
