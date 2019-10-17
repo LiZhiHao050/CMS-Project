@@ -1,0 +1,26 @@
+package com.lzh.cms.dao;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+
+import com.lzh.cms.entity.User;
+
+/**
+ * @author LZH
+ * @Date 2019年10月16日
+ * 用户登录注册
+ */
+
+public interface UserMapper {
+	
+	// 注册
+	@Insert("insert into cms_user (username,password,gender,create_time) values "
+			+ "(#{username},#{password},#{gender},now())")
+	int register(User user);
+	
+	// 通过用户名查找
+	@Select("select username,password,role from cms_user where username = #{value}")
+	User findByName(String username);
+	
+}
+
