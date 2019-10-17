@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lzh.cms.comon.UserConst;
+import com.lzh.cms.comons.UserConst;
 import com.lzh.cms.entity.User;
 import com.lzh.cms.service.UserService;
 
@@ -102,7 +102,7 @@ public class UserController {
 			request.getSession().setAttribute(UserConst.SESSION_USER_KEY, login);
 			// 判断
 			if (login.getRole() == UserConst.USER_ROLE_GENERAL) {
-				return "redirect:home";           // 普通用户重定向到主页
+				return "redirect:../index";           // 普通用户重定向到主页
 			} else if (login.getRole() == UserConst.USER_ROLE_ADMIN) {
 				return "redirect:../admin/index"; // 管理员重定向到管理页
 			} else {

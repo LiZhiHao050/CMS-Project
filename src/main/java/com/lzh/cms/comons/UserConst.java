@@ -1,4 +1,4 @@
-package com.lzh.cms.comon;
+package com.lzh.cms.comons;
 
 /**
  * @author LZH
