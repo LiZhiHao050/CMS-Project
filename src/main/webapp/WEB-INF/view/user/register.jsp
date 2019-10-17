@@ -44,7 +44,7 @@
 
 
 							<form action="/user/register" method="post" id="valiateform">
-								<p class="w-100" align="center" style="color: red">${msg }</p>
+								<p class="w-100" align="center" style="color: red">${msg}</p>
 								<div class="form-group">
 									<label for="username">用户名:</label> <input type="text"
 										class="form-control" name="username" placeholder="请输入用户名">
