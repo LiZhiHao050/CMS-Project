@@ -35,7 +35,7 @@
 					<c:forEach items="${channels}" var="channel">
 						<li class="list-group-item text-center">
 						<a class="channel"
-							data="/getCategories?cid=${channel.id}" href="javascript:void(0)">${channel.name}</a></li>
+							data="/index?chnId=${channel.id}" href="javascript:void(0)">${channel.name}</a></li>
 					</c:forEach>
 				</ul>
 			</div>

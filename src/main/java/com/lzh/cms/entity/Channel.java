@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author LZH
  * @Date 2019年10月17日
- * 
+ * 	定义频道类
  */
 
 public class Channel implements Serializable {
