@@ -1,9 +1,14 @@
 package com.lzh.cms.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lzh.cms.dao.UserMapper;
+import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.User;
 import com.lzh.cms.service.UserService;
 import com.lzh.utils.MD5Utils;
@@ -45,6 +50,21 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 	
+	
+	// 发布文章
+	@Override
+	public int publish(Article article) {
+		return um.publish(article);
+	}
+
+	
+	// 查询文章列表
+	@Override
+	public PageInfo<Article> myArticles(Integer pageNum, Integer userId) {
+		PageHelper.startPage(pageNum, 10);
+		List<Article> artList = um.myArticles(userId);
+		return new PageInfo<>(artList);
+	}
 
 }
 

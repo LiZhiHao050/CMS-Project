@@ -1,5 +1,7 @@
 package com.lzh.cms.service;
 
+import com.github.pagehelper.PageInfo;
+import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.User;
 
 /**
@@ -30,6 +32,22 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean checkExist(String username);
+	
+	
+	/**
+	 * 用户发布文章
+	 * @param article
+	 * @return
+	 */
+	public int publish(Article article);
+
+	/**
+	 * 用户查询文章列表
+	 * @param pageNum   页码
+	 * @param userId    用户ID
+	 * @return
+	 */
+	public PageInfo<Article> myArticles(Integer pageNum, Integer userId);
 
 }
 

@@ -1,8 +1,11 @@
 package com.lzh.cms.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.User;
 
 /**
@@ -21,6 +24,12 @@ public interface UserMapper {
 	// 通过用户名查找
 	@Select("select username,password,role from cms_user where username = #{value}")
 	User findByName(String username);
+	
+	// 用户发布文章
+	int publish(Article article);
+
+	// 用户查询文章列表
+	List<Article> myArticles(Integer userId);
 	
 }
 
