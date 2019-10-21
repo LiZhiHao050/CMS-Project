@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.User;
@@ -22,7 +23,7 @@ public interface UserMapper {
 	int register(User user);
 	
 	// 通过用户名查找
-	@Select("select username,password,role from cms_user where username = #{value}")
+	@Select("select id,username,password,role from cms_user where username = #{value}")
 	User findByName(String username);
 	
 	// 用户发布文章
@@ -30,6 +31,13 @@ public interface UserMapper {
 
 	// 用户查询文章列表
 	List<Article> myArticles(Integer userId);
+	
+	// 用户删除文章(逻辑删除)
+	@Update("UPDATE cms_article SET deleted = 1 WHERE id = #{value}")
+	int delArticle(Integer id);
+	
+	// 用户修改文章
+	int updateArt(Article article);
 	
 }
 

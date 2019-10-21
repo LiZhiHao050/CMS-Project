@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.lzh.cms.dao.UserMapper">
+	
+	<!-- 创建文章Map -->
+	<resultMap type="article" id="articleMapper">
+		<id column="id" property="id" />
+		<result column="channel_id" property="channelId"/>
+		<result column="category_id" property="categoryId"/>
+		<result column="user_id" property="userId"/>
+		<association property="user" column="user_id" 
+		   select="com.lzh.cms.dao.UserMapper.findUserById" />
+	    <association property="channel" column="channel_id" 
+		   select="com.lzh.cms.dao.ChannelMapper.findChannelById" />
+		<association property="category" column="category_id" 
+		   select="com.lzh.cms.dao.CategoryMapper.findCatById" />
+	</resultMap>
+	
+	<!--  -->
+	<select id="findUserById" resultType="user">
+		SELECT * FROM cms_user where id = #{value}
+	</select>
+	
+	<!-- 发布文章(添加) -->	
+	<insert id="publish"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO cms_article(title,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt)
+		  values(#{title},#{content},#{picture},#{channelId},#{categoryId},#{userId},0,0,0,0,now(),now(),0)
+	</insert>
+	
+	
+	<!-- 用户查询文章列表 -->
+	<select id="myArticles" resultMap="articleMapper">
+		SELECT id,title,picture,user_id,channel_id,category_id,
+		        hits,hot,status,created,updated,commentCnt
+		FROM cms_article
+			WHERE user_id = #{value}
+			AND deleted = 0
+	</select>
+	
+	
+	<!-- 用户修改文章 -->
+	<update id="updateArt" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		UPDATE cms_article SET 
+			title=#{title},content=#{content},picture=#{picture},channel_id=#{channelId},
+			category_id=#{categoryId},updated=now()
+		WHERE id = #{id}
+	</update>
+
+</mapper>  
+  

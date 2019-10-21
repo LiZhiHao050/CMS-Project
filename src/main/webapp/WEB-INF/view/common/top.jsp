@@ -29,7 +29,7 @@
 		    <c:out value="${sessionScope.SESSION_USER_KEY.username}" default="CMS-User"/>
 		  </a>
 		  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-		    <a class="dropdown-item" href="/">返回首页</a>
+		    <a class="dropdown-item" href="/index">返回首页</a>
 		    <a class="dropdown-item" href="/user/home">个人主页</a>
 		    <a class="dropdown-item" href="#">个人设置</a>
 		    <a class="dropdown-item" href="#">我的文章</a>

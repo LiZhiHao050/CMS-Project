@@ -49,5 +49,19 @@ public interface UserService {
 	 */
 	public PageInfo<Article> myArticles(Integer pageNum, Integer userId);
 
+	/**
+	 * 	用户删除文章(逻辑删除)
+	 * @param id    文章ID
+	 * @return
+	 */
+	public int delArticle(Integer id);
+
+	/**
+	 * 	用户提交修改文章
+	 * @param article
+	 * @return
+	 */
+	public int updateArt(Article article);
+
 }
 

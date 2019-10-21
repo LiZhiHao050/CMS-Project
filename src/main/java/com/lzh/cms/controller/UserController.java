@@ -25,6 +25,7 @@ import com.github.pagehelper.PageInfo;
 import com.lzh.cms.comons.UserConst;
 import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.User;
+import com.lzh.cms.service.ArticleService;
 import com.lzh.cms.service.UserService;
 
 /**
@@ -40,6 +41,10 @@ public class UserController {
 	@Autowired
 	UserService us;
 
+	@Autowired
+	ArticleService as;
+	
+	
 	// 跳转到注册页面
 	@GetMapping("register")
 	public String register() {
@@ -191,6 +196,42 @@ public class UserController {
 		article.setUserId(loginUser.getId());       // 将登录用户信息存入传递类
 		
 		int res = us.publish(article);
+		
+		return res > 0;
+	}
+	
+	/**
+	 * 	用户删除文章(逻辑删除)
+	 * @param id         文章ID
+	 * @return
+	 */
+	@RequestMapping("delArticle")
+	@ResponseBody
+	public boolean delArticle(Integer id) {
+		int res = us.delArticle(id);
+		return res > 0;
+	}
+	
+	
+	/**
+	 * 	用户提交修改文章
+	 * @param session
+	 * @param article        文章
+	 * @param file           上传的文件
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping("update")
+	@ResponseBody
+	public boolean update(HttpSession session, Article article, MultipartFile file) throws IllegalStateException, IOException {
+		
+		prossesFile(file, article);      // 处理上传文件
+		
+		User loginUser = (User) session.getAttribute(UserConst.SESSION_USER_KEY);   // 获取登录的用户信息
+		article.setUserId(loginUser.getId());       // 将登录用户信息存入传递类
+		
+		int res = us.updateArt(article);
 		
 		return res > 0;
 	}

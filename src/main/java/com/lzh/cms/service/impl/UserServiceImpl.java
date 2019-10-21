@@ -66,5 +66,19 @@ public class UserServiceImpl implements UserService {
 		return new PageInfo<>(artList);
 	}
 
+	// 逻辑删除文章
+	@Override
+	public int delArticle(Integer id) {
+		int res = um.delArticle(id);
+		return res;
+	}
+	
+	// 用户修改文章
+	@Override
+	public int updateArt(Article article) {
+		int res = um.updateArt(article);
+		return res;
+	}
+
 }
 
