@@ -31,11 +31,11 @@
 			<div class="col-md-2 ">
 				<ul class="list-group">
 					<li class="list-group-item  text-center"><a class="channel"
-						href="/">热门</a></li>
+						href="/index">热门</a></li>
 					<c:forEach items="${channels}" var="channel">
 						<li class="list-group-item text-center">
 						<a class="channel"
-							data="/index?chnId=${channel.id}" href="javascript:void(0)">${channel.name}</a></li>
+							 href="/index?chnId=${channel.id}">${channel.name}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -43,32 +43,34 @@
 			<!-- 中间内容主体区 -->
 			<div class="col-md-7 split min_h_500">
 
+				<c:if test="${chnId==0}">
 				<!-- 默认显示图片轮播+热点内容 -->
-				<div id="carousel" class="carousel slide" data-ride="carousel">
-					<ol class="carousel-indicators">
-						<li data-target="#carousel" data-slide-to="0" class="active"></li>
-						<li data-target="#carousel" data-slide-to="1"></li>
-						<li data-target="#carousel" data-slide-to="2"></li>
-					</ol>
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img class="d-block w-100" src="/pic/3f293225-1764-4cd0-ada1-0b55bba7b5c8.jpg" alt="First slide">
+					<div id="carousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel" data-slide-to="1"></li>
+							<li data-target="#carousel" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img class="d-block w-100" src="/pic/1.jpg" alt="First slide">
+							</div>
+							<div class="carousel-item">
+								<img class="d-block w-100" src="/pic/2.jpg" alt="Second slide">
+							</div>
+							<div class="carousel-item">
+								<img class="d-block w-100" src="/pic/3.jpg" alt="Third slide">
+							</div>
 						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="/pic/2.jpg" alt="Second slide">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="/pic/3.jpg" alt="Third slide">
-						</div>
+						<a class="carousel-control-prev" href="#carousel" role="button"
+							data-slide="prev"> <span class="carousel-control-prev-icon"
+							aria-hidden="true"></span> <span class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#carousel" role="button"
+							data-slide="next"> <span class="carousel-control-next-icon"
+							aria-hidden="true"></span> <span class="sr-only">Next</span>
+						</a>
 					</div>
-					<a class="carousel-control-prev" href="#carousel" role="button"
-						data-slide="prev"> <span class="carousel-control-prev-icon"
-						aria-hidden="true"></span> <span class="sr-only">Previous</span>
-					</a> <a class="carousel-control-next" href="#carousel" role="button"
-						data-slide="next"> <span class="carousel-control-next-icon"
-						aria-hidden="true"></span> <span class="sr-only">Next</span>
-					</a>
-				</div>
+				</c:if>
 				<br />
 				<div id="hot">
 					<!-- 新闻热点 -->
@@ -86,30 +88,23 @@
 									<fmt:formatDate value="${c.created }" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;&nbsp;&nbsp;
 								</p>
 							</div>
-						
-
-
 						</div>
                       <br/>
 					</c:forEach>
 					<div>${pageStr}</div>
 				</div>
+				
 				<!-- 分类 -->
 				<div id="category">
-				
+					 <%@ include file="./article/category.jsp" %> 
 				</div>
-
-
-
 
 				<br />
 
 				<!-- 文章 -->
 				<div id="article">
-				
-				
+					<%@ include file="./article/list.jsp" %>
 				</div>
-
 			</div>
 
 			<div class="col-md-3">
@@ -118,7 +113,7 @@
 					<div class="card-body">
 						<ol>
 							<c:forEach items="${lasts}" var="article">
-								<li class="text-truncate"><a href="/article/getDetail?aId=${article.id}">${article.title}</a></li>
+								<li class="text-truncate"><a href="/article/getDetail?aId=${article.id}" target="_blank">${article.title}</a></li>
 							</c:forEach>
 						</ol>
 					</div>
@@ -183,11 +178,11 @@
 		})
 		//查看文章明细
 		 function toDetail(id){
-		
 		//	 window.open("/getArticleDetail?id="+id);
-		 window.open("/article/getDetail?aId="+id,"_blank")
+		 	window.open("/article/getDetail?aId="+id,"_blank")
 		 }
 		 
 	</script>
+	<script type="text/javascript" src="/resource/js/cms.js"></script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lzh.cms.dao.CategoryMapper">
+	
+	<!-- 多对一查询分类 -->
+	<select id="findCatById" resultType="category">
+		 SELECT * FROM cms_category WHERE id = #{value} limit 1
+	</select> 
+
+</mapper>  

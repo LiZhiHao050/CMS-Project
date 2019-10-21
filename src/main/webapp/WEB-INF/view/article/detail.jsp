@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>${article.title}</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -19,10 +19,10 @@
 		
 		<dl>
 		   <dt><a href="javascript:window.close()">关闭窗口</a></dt>
-			<dt>${article.title }</dt>
+			<dt>${article.title}</dt>
 				<hr>
 			
-			<dd>${article.content }</dd>
+			<dd>${article.content}</dd>
 			<dd><ul class="pagination"><li class="page-item">${adjStr}</li></ul></dd>
 			
 			<dd><div>
@@ -44,10 +44,10 @@
 
 
 
-	
+	/* 
 	$(function(){
 		$("#commentList").load("/commnent/getlist?articleId=${article.id}" );
-	});
+	}); */
 	
 	function commnent(){
 		

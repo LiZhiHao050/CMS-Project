@@ -21,21 +21,20 @@
 
 	<!--栏目下所有 分类 -->
 	<li class="nav-item  list-group-item-success"><a class="nav-link"
-		href="javascript:void(0)" data="/article/listbyCatId?channelId=${channelId}">全部</a></li>
-	<c:forEach items="${catygories}" var="catygory">
+		href="/index?chnId=${chnId}">全部</a></li>
+	<c:forEach items="${categories}" var="catygory">
 
 		<li class="nav-item "><a class="nav-link"
-			href="javascript:void(0)"
-			data="/article/listbyCatId?catId=${catygory.id}">${catygory.name }</a></li>
+			href="/index?chnId=${chnId}&catId=${catygory.id}">${catygory.name }</a></li>
 	</c:forEach>
 
-	<!-- 所有栏目下的文章 -->
+<%-- 	<!-- 所有栏目下的文章 -->
 	<div id="content-wrapper">
 
-		<%-- <ul class="list-unstyled">
+		 <ul class="list-unstyled">
 			<hr>
 			<!-- 栏目下所有文章 -->
-			<c:forEach items="${pageInfo.list}" var="article">
+			<c:forEach items="${articles.list}" var="article">
 				<li class="media"><img width="120" height="80" class="mr-3" src="/pic/${article.picture }"
 					alt="no pic">
 					<div class="media-body">
@@ -51,18 +50,20 @@
 					</div></li>
 				<hr>
 			</c:forEach>
+			<li> ${page}</li>
 		</ul>
-</ul> --%>
+		--%>
+</ul> 
 </div>
-</div>
+
 
 <script type="text/javascript">
 
 //加载全部
-$(function(){
+/* $(function(){
 	var url="/article/listbyCatId?channelId=${channelId}";
 	$('#content-wrapper').load(url);
-})
+}) */
 /*  $(function(){
 	   //当点击左侧菜单时  加载url
     $('.nav-link').click(function (e) {
@@ -90,4 +91,3 @@ $(function(){
 	}
 
 </script> 
-<jsp:include page="/WEB-INF/view/common/includejs.jsp"></jsp:include>
