@@ -19,8 +19,11 @@
 		
 		<dl>
 		   <dt><a href="javascript:window.close()">关闭窗口</a></dt>
-			<dt>${article.title}</dt>
-				<hr>
+			<dt>
+				${article.title}<br>
+				${article.tags}
+			</dt>
+			<hr>
 			
 			<dd>${article.content}</dd>
 			<dd><ul class="pagination"><li class="page-item">${adjStr}</li></ul></dd>

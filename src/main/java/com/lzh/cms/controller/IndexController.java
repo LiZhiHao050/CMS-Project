@@ -45,7 +45,7 @@ public class IndexController {
 	 * @param pageNum     页码
 	 * @return
 	 */
-	@RequestMapping("index")
+	@RequestMapping({"index","/"})
 	public String index(HttpServletRequest requset,
 			@RequestParam(defaultValue="0") Integer chnId,
 			@RequestParam(defaultValue="0") Integer catId,

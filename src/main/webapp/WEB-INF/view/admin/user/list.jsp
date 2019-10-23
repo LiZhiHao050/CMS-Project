@@ -11,10 +11,10 @@
 <script type="text/javascript" src="/resource/js/cms.js"></script>
 <script type="text/javascript">
 
-function query(){
-	 //在中间区域显示地址的内容
-    $('#content-wrapper').load("/user/list?name="+$("[name='username']").val());
-}
+	function query(){
+		 //在中间区域显示地址的内容
+	    $('#content-wrapper').load("/admin/managerUser?name="+$("[name='username']").val());
+	}
 
 </script>
 </head>
@@ -24,7 +24,7 @@ function query(){
 
 		<div class="form-inline">
 			<label for="username">用户名:</label> <input id="username" type="text"
-				name="username" value="${username }" class="form-control ">
+				name="username" value="${name}" class="form-control ">
 			<button type="button" class="btn btn-info" onclick="query()">查询</button>
 		</div>
 
@@ -40,7 +40,7 @@ function query(){
 					<td>更新日期</td>
 				</tr>
 			</thead>
-			<c:forEach items="${pageuser.list}" var="u" varStatus="index">
+			<c:forEach items="${userList.list}" var="u" varStatus="index">
 				<tr align="center">
 					<td>${index.index+1 }</td>
 					<td>${u.username}</td>
@@ -49,17 +49,17 @@ function query(){
 					<td>${u.gender==0?"女":"男"}</td>
 					<%-- <td>${u.birthday}</td> --%>
 					<td>
-					 	<fmt:formatDate  value="${u.createTime}" />
+					 	<fmt:formatDate  value="${u.create_time}" pattern="yyyy-MM-dd HH:mm"/>
 					 	<%-- <c:if test="${u.createTime!=null}"></c:if> --%>
 					 </td>
-					<td><fmt:formatDate  value="${u.updateTime}" /></td>
+					<td><fmt:formatDate  value="${u.update_time}" pattern="yyyy-MM-dd HH:mm"/></td>
 				</tr>
 
 			</c:forEach>
 
 		</table>
 		<div>
-		  ${pageStr}
+		    ${pageUtil}
 		</div>
 	</div>
 
@@ -69,17 +69,18 @@ function query(){
 
 function moption(userid,obj){
 	
-	$.ajax({
-		type:"post",
-		data:{id:userid,locked:$(obj).text()=="正常"?1:0},
-		url:"/user/update",
-		success:function(flag){
-		  	if(flag){
-			 $(obj).text($(obj).text()=="正常"?"禁用":"正常");
-		  	}
-		}
-		
-	}) 
+	if (confirm("确认要修改当前用户的状态吗?")) {
+		$.ajax({
+			type:"post",
+			data:{id:userid,locked:$(obj).text()=="正常" ? 1 : 0},
+			url:"/admin/modifyUserStatus",
+			success:function(flag){
+			  	if(flag){
+					$(obj).text($(obj).text()=="正常"?"禁用":"正常");
+			  	}
+			}
+		});
+	}
 }
 
 

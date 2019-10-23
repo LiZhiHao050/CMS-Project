@@ -85,7 +85,7 @@ public class ArticleController {
 	 */
 	@GetMapping("update")
 	public String toUpdate(HttpServletRequest request, Integer id) {
-		Article article = arts.findArtById(id);                 // 根据ID获取文章
+		Article article = arts.getDetail(id);                 // 根据ID获取文章
 		
 		request.setAttribute("article", article);
 		request.setAttribute("content1", article.getContent());

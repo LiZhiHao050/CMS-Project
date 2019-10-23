@@ -53,11 +53,27 @@ public class ArticleServiceImpl implements ArticleService {
 		return newArts;
 	}
 
-	// 根据文章ID回显
+	
+	// 管理文章(管理员)
 	@Override
-	public Article findArtById(Integer id) {
-		Article art = am.findArtById(id);
-		return art;
+	public PageInfo<Article> managerArts(int pageNum, Integer status) {
+		PageHelper.startPage(pageNum, 10);
+		List<Article> artList = am.managerArts(status);
+		return new PageInfo<>(artList);
+	}
+	
+	// 审核文章状态(管理员)
+	@Override
+	public int auditStatus(Integer status, Integer artId) {
+		int res = am.auditStatus(status, artId);
+		return res;
+	}
+	
+	// 修改文章热门状态
+	@Override
+	public int setHot(Integer status, Integer artId) {
+		int res = am.setHot(status, artId);
+		return res;
 	}
 
 }

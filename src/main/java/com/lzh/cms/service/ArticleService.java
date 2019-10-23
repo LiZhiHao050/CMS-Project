@@ -30,11 +30,30 @@ public interface ArticleService {
 	List<Article> getNewArticle(int num);
 	
 	/**
-	 * 	根据ID获取文章
-	 * @param id
+	 *	管理文章(管理员)
+	 * @param pageNum
+	 * @param status 
 	 * @return
 	 */
-	Article findArtById(Integer id);
+	PageInfo<Article> managerArts(int pageNum, Integer status);
+	
+	
+	/**
+	 * 	审核文章状态(管理员)
+	 * @param status        文章状态
+	 * @param artId         文章ID
+	 * @return
+	 */
+	int auditStatus(Integer status, Integer artId);
+	
+	
+	/**
+	 * 	修改文章热门状态
+	 * @param status        热门状态
+	 * @param artId         文章ID
+	 * @return
+	 */
+	int setHot(Integer status, Integer artId);
 	
 }
 

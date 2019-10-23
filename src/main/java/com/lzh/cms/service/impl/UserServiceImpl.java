@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lzh.cms.dao.ArticleMapper;
 import com.lzh.cms.dao.UserMapper;
 import com.lzh.cms.entity.Article;
+import com.lzh.cms.entity.Tag;
 import com.lzh.cms.entity.User;
 import com.lzh.cms.service.UserService;
 import com.lzh.utils.MD5Utils;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserMapper um;
 
+	@Autowired
+	ArticleMapper am;
+	
 	// 注册
 	@Override
 	public int register(User user) {
@@ -50,18 +55,48 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 	
+	/**
+	 * 处理文章标签
+	 * @param article      要处理的文章
+	 */
+	private void prossesTags(Article article) {
+		String tag = "";
+		String[] split = article.getTags().split(",");     // 根据逗号分割
+		
+		for (String tags : split) {
+			tag = tags.trim();                             // 去除空格
+			Tag resTag = am.getTag(tag);                   // 获取标签对象
+			if (resTag == null) {                          // 判断是否为空
+				resTag = new Tag(tag);                     // 为空则生成新的标签
+				am.addTag(resTag);                         // 创建新标签
+			}
+			
+			try {
+				am.addArtsTag(article.getId(), resTag.getId());
+			} catch (Exception e) {
+				System.out.println("主键重复异常(插入失败)");
+			}
+			
+		}
+		
+	}
+	
 	
 	// 发布文章
 	@Override
 	public int publish(Article article) {
-		return um.publish(article);
+		int res = um.publish(article);
+		
+		prossesTags(article);               // 调用处理标签方法
+		
+		return res;
 	}
 
 	
 	// 查询文章列表
 	@Override
 	public PageInfo<Article> myArticles(Integer pageNum, Integer userId) {
-		PageHelper.startPage(pageNum, 10);
+		PageHelper.startPage(pageNum, 8);
 		List<Article> artList = um.myArticles(userId);
 		return new PageInfo<>(artList);
 	}
@@ -70,6 +105,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int delArticle(Integer id) {
 		int res = um.delArticle(id);
+		am.delArtTags(id);                         // 删除中间表的数据 
 		return res;
 	}
 	
@@ -77,6 +113,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateArt(Article article) {
 		int res = um.updateArt(article);
+		am.delArtTags(article.getId());            // 删除中间表中的数据
+		prossesTags(article);
 		return res;
 	}
 

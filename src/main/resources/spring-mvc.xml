@@ -30,6 +30,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/resource/**"/>
+			<mvc:exclude-mapping path="/"/>
 			<mvc:exclude-mapping path="/index"/>
 			<mvc:exclude-mapping path="/article/getDetail"/>
 			<mvc:exclude-mapping path="/user/login"/>

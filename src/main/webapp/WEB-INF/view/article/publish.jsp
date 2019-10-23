@@ -64,6 +64,10 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 			<select class="custom-select custom-select-sm mb-3" id="category" name="categoryId">
 			</select>
 		</div>
+		<div class="form-group row ">
+			<label for="title">文章标签</label> <input type="text"
+				class="form-control" id="tags" name="tags" placeholder="请输入标签">
+		</div>
 		
 		<div class="form-group row" >
 		<button type="button" class="btn btn-success" onclick="publish()">发布</button>

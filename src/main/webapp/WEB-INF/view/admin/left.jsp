@@ -6,11 +6,11 @@
 	<li class="nav-item active"><a class="nav-link" href="/admin/index">
 			<i class="fas fa-fw fa-tachometer-alt"></i> <span>后台首页</span>
 	</a></li>
-	<li class="nav-item"><a class="nav-link"  href="javascript:void(0)" data="/article/checkList">
+	<li class="nav-item"><a class="nav-link"  href="javascript:void(0)" data="/admin/managerArts">
 			<i class="fas fa-fw fa-folder"></i> <span>文章管理</span>
 	</a></li>
 
-	<li class="nav-item"><a class="nav-link"  href="javascript:void(0)" data="/user/list">
+	<li class="nav-item"><a class="nav-link"  href="javascript:void(0)" data="/admin/managerUser">
 			<i class="fas fa-fw fa-chart-area"></i> <span>用户管理</span>
 	</a></li>
 	<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data="待开发">

@@ -114,14 +114,19 @@ public class UserController {
 			request.setAttribute("error", "用户名或密码错误!");
 			return "user/login";
 		} else {
-			request.getSession().setAttribute(UserConst.SESSION_USER_KEY, login);
-			// 判断
-			if (login.getRole() == UserConst.USER_ROLE_GENERAL) {
-				return "redirect:home";           // 普通用户重定向到主页
-			} else if (login.getRole() == UserConst.USER_ROLE_ADMIN) {
-				return "redirect:../admin/index"; // 管理员重定向到管理页
+			if (login.getLocked() == 0) {             // 判断用户是否被冻结
+				request.getSession().setAttribute(UserConst.SESSION_USER_KEY, login);
+				// 判断
+				if (login.getRole() == UserConst.USER_ROLE_GENERAL) {
+					return "redirect:home";           // 普通用户重定向到主页
+				} else if (login.getRole() == UserConst.USER_ROLE_ADMIN) {
+					return "redirect:../admin/index"; // 管理员重定向到管理页
+				} else {
+					return "user/login";              // 其他情况
+				}
 			} else {
-				return "user/login";              // 其他情况
+				request.setAttribute("error", "该用户已被冻结!");
+				return "user/login";
 			}
 		}
 		
@@ -247,7 +252,8 @@ public class UserController {
 	private void prossesFile(MultipartFile file, Article article) throws IllegalStateException, IOException {
 		
 		String filename = file.getOriginalFilename();                  // 获取文件名称
-		if ("".equals(filename)) {                                     // 对获取的文件名进行非空判断
+		if ("".equals(filename) || file.isEmpty()) {                   // 对获取的文件名进行非空判断
+			article.setPicture("");
 			return;
 		}
 		String suffix = filename.substring(filename.lastIndexOf(".")); // 获取文件后缀名称

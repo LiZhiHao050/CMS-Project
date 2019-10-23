@@ -12,31 +12,33 @@
 <link rel="stylesheet"
 	href="/resource/css/bootstrap.min.css">
 	<script type="text/javascript">
+	
 	function pass(status){
-		
-		$.post("/article/pass",{status:status,id:'${article.id}'},function(obj){
-			if(obj){
+		$.post("/admin/passArticle",{status:status,artId:'${article.id}'},function(obj){
+			if(obj.result == 1){
 				alert("操作成功!")
-				$("#content-wrapper").load("/article/checkList")
+				$("#content-wrapper").load("/admin/managerArts")
+			} else {
+				alert(obj.message);
 			}
-		})
-		
-	}
+		});
+	};
 	
 	
-function hot(status){
-		
-		$.post("/article/sethot",{status:status,id:'${article.id}'},function(obj){
-			if(obj){
+	function hot(status){
+		$.post("/admin/sethot",{status:status,artId:'${article.id}'},function(obj){
+			if(obj.result == 1){
 				alert("操作成功!")
-				$("#content-wrapper").load("/article/checkList")
+				$("#content-wrapper").load("/admin/managerArts");
+			} else {
+				alert(obj.message);
 			}
 		})
-		
-	}
+	};
+	
 	
 	function goBack(){
-		$("#content-wrapper").load("/article/checkList")
+		$("#content-wrapper").load("/admin/managerArts");
 	}
 	
 	</script>

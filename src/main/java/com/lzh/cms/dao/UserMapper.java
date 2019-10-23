@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.lzh.cms.entity.Article;
+import com.lzh.cms.entity.Tag;
 import com.lzh.cms.entity.User;
 
 /**
@@ -18,12 +19,12 @@ import com.lzh.cms.entity.User;
 public interface UserMapper {
 	
 	// 注册
-	@Insert("insert into cms_user (username,password,gender,create_time) values "
-			+ "(#{username},#{password},#{gender},now())")
+	@Insert("insert into cms_user (username,password,gender,create_time,update_time) values "
+			+ "(#{username},#{password},#{gender},now(),now())")
 	int register(User user);
 	
 	// 通过用户名查找
-	@Select("select id,username,password,role from cms_user where username = #{value}")
+	@Select("select id,username,password,role,locked from cms_user where username = #{value}")
 	User findByName(String username);
 	
 	// 用户发布文章

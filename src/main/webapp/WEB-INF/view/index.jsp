@@ -123,7 +123,6 @@
 			      <ol>
 			    <c:forEach items="${links}" var="l">
 			      <li class="text-truncate text-center"><a href="${l.url }" target="_blank">${l.text}</a></li>
-			    
 			    </c:forEach>
 			     </ol>
 			   </div>

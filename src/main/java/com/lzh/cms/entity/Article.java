@@ -27,6 +27,8 @@ public class Article implements Serializable {
 	private Integer userId;
 	private User user;                  // 多对一查询用户
 	
+	private String tags;                // 文章标签
+	
 	private Integer hits;
 	private Integer hot;
 	private Integer status;
@@ -274,6 +276,22 @@ public class Article implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
+	
+	/**
+	 * @return the tags
+	 */
+	public String getTags() {
+		return tags;
+	}
+
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
 	
 	/* (non-Javadoc)
@@ -283,13 +301,11 @@ public class Article implements Serializable {
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", picture=" + picture
 				+ ", channelId=" + channelId + ", channel=" + channel + ", categoryId=" + categoryId + ", category="
-				+ category + ", userId=" + userId + ", user=" + user + ", hits=" + hits + ", hot=" + hot + ", status="
-				+ status + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", commentCnt="
-				+ commentCnt + "]";
+				+ category + ", userId=" + userId + ", user=" + user + ", tags=" + tags + ", hits=" + hits + ", hot="
+				+ hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated
+				+ ", commentCnt=" + commentCnt + "]";
 	}
 
-	
-	
 	/*
 	 * (non-Javadoc)
 	 * 

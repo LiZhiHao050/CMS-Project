@@ -72,11 +72,11 @@
 	</c:forEach>
 	</table>
 	
-	<a href="myArticles?pageNum=1">首页</a>&nbsp;
-	<a href="myArticles?pageNum=${articles.prePage == 0 ? 1 : articles.prePage}">上一页</a>
+	<input type="button" onclick="page(1)" value="首页">&nbsp;
+	<input type="button" onclick="page(${articles.prePage == 0 ? 1 : articles.prePage})" value="上一页">
 	&emsp;${articles.lastPage == 0 ? 0 : articles.pageNum}/${articles.lastPage}&emsp;
-	<a href="myArticles?pageNum=${articles.nextPage == 0 ? articles.lastPage : articles.nextPage}">下一页</a>&nbsp;
-	<a href="myArticles?pageNum=${articles.lastPage}">尾页</a>
+	<input type="button" onclick="page(${articles.nextPage == 0 ? articles.lastPage : articles.nextPage})" value="下一页">&nbsp;
+	<input type="button" onclick="page(${articles.lastPage})" value="尾页">
 
 </body>
 <script type="text/javascript">
@@ -93,6 +93,11 @@
 	    });
 		
 	})
+	
+	// 翻页
+	function page(url) {
+		$('#center').load("myArticles?pageNum="+url);
+	}
 	
 </script>
 </html>

@@ -10,7 +10,27 @@
 		<result column="channel_id" property="channelId"/>
 		<result column="category_id" property="categoryId"/>
 		<result column="user_id" property="userId"/>
+		<association property="user" column="user_id" 
+		   select="com.lzh.cms.dao.UserMapper.findUserById" />
+	    <association property="channel" column="channel_id" 
+		   select="com.lzh.cms.dao.ChannelMapper.findChannelById" />
+		<association property="category" column="category_id" 
+		   select="com.lzh.cms.dao.CategoryMapper.findCatById" />
+		<association property="tags" column="id" 
+		   select="getTagsByArtId" />
 	</resultMap>
+	
+	<!-- resultMap调用的通过文章id获取标签的方法 -->
+	<select id="getTagsByArtId" resultType="java.lang.String">
+		SELECT
+			GROUP_CONCAT( tagname ) tags 
+		FROM
+			cms_tag t
+			JOIN cms_article_tag_middle m ON t.id = m.tid
+		WHERE m.aid = #{value}
+		GROUP BY m.aid
+	</select>
+	
 	
 	<!-- 获取文章列表 -->
 	<select id="getArtList" resultMap="articleMap">
@@ -22,6 +42,7 @@
 			AND category_id = #{catId}
 		</if>
 		AND deleted = 0
+		AND status = 1
 	</select>
 	
 	<!-- 获取文章内容 -->
@@ -38,9 +59,10 @@
 		SELECT id,title,picture,channel_id,category_id,user_id,
 		        hits,hot,status,created,updated,commentCnt
 		FROM cms_article
-			WHERE hot > 0
-			AND deleted = 0
-		 	ORDER BY hot DESC,created DESC
+		WHERE hot > 0
+		AND deleted = 0
+		AND status = 1
+		ORDER BY hot DESC,created DESC
 	</select>
 	
 	<!-- 获取最新文章 -->
@@ -49,15 +71,27 @@
 		        hits,hot,status,created,updated,commentCnt
 		FROM cms_article
 		WHERE deleted = 0
-		 	ORDER BY created DESC limit #{value}
+		AND status = 1
+		ORDER BY created DESC limit #{value}
 	</select>
 	
-	<!-- 根据文章ID回显 -->
-	<select id="findArtById" resultMap="articleMap">
-		SELECT id,title,picture,content,channel_id,category_id,user_id,
-		        hits,hot,status,created,updated,commentCnt
-		FROM cms_article
-		WHERE id = #{value}
-		AND deleted = 0
+	
+	<!-- 管理文章 -->
+	<select id="managerArts" resultMap="articleMap">
+		SELECT id,title,picture,channel_id,category_id,user_id,
+		        hits,hot,status,created,updated
+		FROM cms_article 
+		WHERE deleted = 0
+		<if test="status != 3 and status != null">
+			AND status = #{status}
+		</if>
+		ORDER BY created DESC 	
 	</select>
+	
+	
+	<!-- 创建标签 -->
+	<insert id="addTag" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO cms_tag (tagname) VALUES (#{tagname})
+	</insert>
+	
 </mapper>  
