@@ -119,14 +119,15 @@
 					</div>
 				</div>
 			   <div class="card">
-			   <div class="card-header">友情链接</div>
-			      <ol>
-			    <c:forEach items="${links}" var="l">
-			      <li class="text-truncate text-center"><a href="${l.url }" target="_blank">${l.text}</a></li>
-			    </c:forEach>
-			     </ol>
-			   </div>
-			
+				   <div class="card-header">友情链接</div>
+				   <div class="card-body">
+					   <ol>
+						   	<c:forEach items="${links}" var="l">
+						   		<li class="text-truncate text-center"><a href="${l.url}" target="_blank">${l.title}</a></li>
+						   	</c:forEach>
+					   </ol>
+				   </div>
+				</div>
 			</div>
 		</div>
 	</div>

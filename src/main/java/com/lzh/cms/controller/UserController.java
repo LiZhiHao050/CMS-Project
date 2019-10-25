@@ -3,7 +3,9 @@ package com.lzh.cms.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
+import com.lzh.cms.comons.ArticleType;
 import com.lzh.cms.comons.UserConst;
 import com.lzh.cms.entity.Article;
+import com.lzh.cms.entity.ImageBean;
 import com.lzh.cms.entity.User;
 import com.lzh.cms.service.ArticleService;
 import com.lzh.cms.service.UserService;
@@ -174,13 +179,23 @@ public class UserController {
 	
 	
 	/**
-	 * 去发布文章
+	 * 	去发布文章
 	 * @return
 	 */
 	@RequestMapping("toPublish")
 	public String toPublish() {
 		return "article/publish";
 	}
+	
+	/**
+	 * 	去发布多图片文章
+	 * @return
+	 */
+	@RequestMapping("toPublistImgs")
+	public String toPublistImgs() {
+		return "article/publishimg";
+	}
+	
 	
 	/**
 	 * 用户发布文章(添加)
@@ -195,6 +210,7 @@ public class UserController {
 	@ResponseBody
 	public boolean publish(HttpSession session, Article article, MultipartFile file) throws IllegalStateException, IOException {
 		
+		article.setArticleType(ArticleType.HTML);          // 类型为HTML
 		prossesFile(file, article);     // 处理文件上传
 		
 		User loginUser = (User) session.getAttribute(UserConst.SESSION_USER_KEY);   // 获取登录的用户信息
@@ -204,6 +220,51 @@ public class UserController {
 		
 		return res > 0;
 	}
+	
+	/**
+	 * 	发布图片文章
+	 * @param request
+	 * @param article
+	 * @param file
+	 * @param imgs
+	 * @param imgsdesc
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping("publishimg")
+	@ResponseBody
+	public boolean publishimg(HttpServletRequest request, Article article, 
+			@RequestParam("file") MultipartFile file,   // 标题图片
+			@RequestParam("imgs") MultipartFile[] imgs, // 文章中图片
+			@RequestParam("imgsdesc") String[] imgsdesc // 文章中图片的描述
+				) throws IllegalStateException, IOException {
+		
+		article.setArticleType(ArticleType.IMAGE);      // 文章类型为Image
+		
+		prossesFile(file,article);                      // 将标题图片保存
+		List<ImageBean> imgBeans =  new ArrayList<ImageBean>();      // 创建一个空的图片信息集合
+		
+		for (int i = 0; i < imgs.length; i++) {
+			String url = prossesFile(imgs[i]);
+			if(!"".equals(url)) {
+				ImageBean imageBean = new ImageBean(url, imgsdesc[i]);
+				imgBeans.add(imageBean);
+			}
+		}
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(imgBeans);// 文章的内容
+		article.setContent(json);//
+		
+		User loginUser = (User) request.getSession().getAttribute(UserConst.SESSION_USER_KEY);   // 获取登录的用户信息
+		article.setUserId(loginUser.getId());       // 将登录用户信息存入传递类
+		
+		int res = us.publish(article);              // 进行发布
+		
+		return res > 0;
+	}
+	
 	
 	/**
 	 * 	用户删除文章(逻辑删除)
@@ -243,7 +304,7 @@ public class UserController {
 	
 	
 	/**
-	 * 上传保存文件操作方法
+	 * 	上传保存文件操作方法
 	 * @param file
 	 * @param article
 	 * @throws IllegalStateException
@@ -278,6 +339,54 @@ public class UserController {
 		file.transferTo(saveFile);                                  // 保存文件
 		article.setPicture(dbPath);                                 // 数据库保存文件路径
 	}
+	
+	
+	
+	/**
+	 * 	重载上传保存文件操作方法
+	 * @param file
+	 * @param article
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	private String prossesFile(MultipartFile file) throws IllegalStateException, IOException {
+		
+		String filename = file.getOriginalFilename();                  // 获取文件名称
+		if ("".equals(filename) || file.isEmpty()) {                   // 对获取的文件名进行非空判断
+			return "";
+		}
+		String suffix = filename.substring(filename.lastIndexOf(".")); // 获取文件后缀名称
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String today = sdf.format(new Date());
+		
+		// 生成路径
+		String path = "Z:/CMS_Workspace/lizhihao-cms/src/main/webapp/resource/pic/" + today;
+		
+		File menu = new File(path);
+		if (!menu.exists()) {        // 如果文件不存在则创建文件
+			menu.mkdir();
+		}
+		
+		String newName = UUID.randomUUID().toString() + suffix;     // 生成新文件名称
+		String finalPath = path + "/" + newName;                    // 生成最终文件路径
+		String dbPath = today + "/" + newName;                      // 生成数据库文件路径
+		
+		File saveFile = new File(finalPath);                        // 最终
+		file.transferTo(saveFile);                                  // 保存文件
+		return dbPath;                                 // 返回数据库保存文件路径
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 

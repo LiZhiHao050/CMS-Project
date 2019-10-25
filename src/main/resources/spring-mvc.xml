@@ -31,8 +31,11 @@
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/resource/**"/>
 			<mvc:exclude-mapping path="/"/>
+			<mvc:exclude-mapping path="/comment/addComment"/>
+			<mvc:exclude-mapping path="/comment/delComment"/>
 			<mvc:exclude-mapping path="/index"/>
 			<mvc:exclude-mapping path="/article/getDetail"/>
+			<mvc:exclude-mapping path="/comment/getComList"/>
 			<mvc:exclude-mapping path="/user/login"/>
 			<mvc:exclude-mapping path="/user/register"/>
 			<mvc:exclude-mapping path="/user/checkExist"/>

@@ -61,6 +61,10 @@ public class UserServiceImpl implements UserService {
 	 */
 	private void prossesTags(Article article) {
 		String tag = "";
+		if (article.getTags() == null) {                   // 判空
+			return;                                        // 为空则返回
+		}
+		
 		String[] split = article.getTags().split(",");     // 根据逗号分割
 		
 		for (String tags : split) {

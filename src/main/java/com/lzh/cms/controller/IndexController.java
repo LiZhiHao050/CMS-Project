@@ -14,6 +14,7 @@ import com.lzh.cms.comons.PageUtils;
 import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.Category;
 import com.lzh.cms.entity.Channel;
+import com.lzh.cms.entity.Links;
 import com.lzh.cms.service.ArticleService;
 import com.lzh.cms.service.CategoryService;
 import com.lzh.cms.service.ChannelService;
@@ -67,8 +68,10 @@ public class IndexController {
 		}
 		
 		List<Article> newArts = arts.getNewArticle(5);                 // 获取最新文章
+		List<Links> friendLinks = arts.getFriendLinks(5);       // 获取友情链接
 		
 		requset.setAttribute("lasts", newArts);
+		requset.setAttribute("links", friendLinks);
 		
 		requset.setAttribute("chnId", chnId);                          // 频道id
 		requset.setAttribute("catId", catId);                          // 分类id

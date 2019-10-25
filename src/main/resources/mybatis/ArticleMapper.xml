@@ -10,6 +10,9 @@
 		<result column="channel_id" property="channelId"/>
 		<result column="category_id" property="categoryId"/>
 		<result column="user_id" property="userId"/>
+		<result column="articleType" property="articleType"
+			typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+		    jdbcType="INTEGER" javaType="com.lzh.cms.comons.ArticleType"/>
 		<association property="user" column="user_id" 
 		   select="com.lzh.cms.dao.UserMapper.findUserById" />
 	    <association property="channel" column="channel_id" 
@@ -35,7 +38,7 @@
 	<!-- 获取文章列表 -->
 	<select id="getArtList" resultMap="articleMap">
 		SELECT id,title,picture,channel_id,category_id,user_id,
-		        hits,hot,status,created,updated,commentCnt
+		        hits,hot,status,created,updated,commentCnt,articleType
 		FROM cms_article
 		WHERE channel_id = #{chnId}
 		<if test="catId != 0">
@@ -48,7 +51,7 @@
 	<!-- 获取文章内容 -->
 	<select id="getDetail" resultMap="articleMap">
 		SELECT id,title,picture,content,channel_id,category_id,user_id,
-		        hits,hot,status,created,updated,commentCnt
+		        hits,hot,status,created,updated,commentCnt,articleType
 		FROM cms_article
 		WHERE id = #{value}
 		AND deleted = 0
@@ -57,7 +60,7 @@
 	<!-- 获取热门文章 -->
 	<select id="getHotArticle" resultMap="articleMap">
 		SELECT id,title,picture,channel_id,category_id,user_id,
-		        hits,hot,status,created,updated,commentCnt
+		        hits,hot,status,created,updated,commentCnt,articleType
 		FROM cms_article
 		WHERE hot > 0
 		AND deleted = 0
@@ -68,7 +71,7 @@
 	<!-- 获取最新文章 -->
 	<select id="getNewArticle" resultMap="articleMap">
 		SELECT id,title,picture,channel_id,category_id,user_id,
-		        hits,hot,status,created,updated,commentCnt
+		        hits,hot,status,created,updated,commentCnt,articleType
 		FROM cms_article
 		WHERE deleted = 0
 		AND status = 1

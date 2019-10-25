@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lzh.cms.dao.ArticleMapper;
 import com.lzh.cms.entity.Article;
+import com.lzh.cms.entity.Links;
 import com.lzh.cms.service.ArticleService;
 
 /**
@@ -51,6 +52,12 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> getNewArticle(int num) {
 		List<Article> newArts = am.getNewArticle(num);
 		return newArts;
+	}
+	
+	@Override
+	public List<Links> getFriendLinks(int num) {
+		List<Links> friendLinks = am.getFriendLinks(num);
+		return friendLinks;
 	}
 
 	

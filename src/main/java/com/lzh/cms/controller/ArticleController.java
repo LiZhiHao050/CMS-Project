@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.lzh.cms.comons.ArticleType;
 import com.lzh.cms.entity.Article;
 import com.lzh.cms.entity.Category;
 import com.lzh.cms.entity.Channel;
@@ -45,9 +47,20 @@ public class ArticleController {
 	 */
 	@RequestMapping("getDetail")
 	public String getDetail(HttpServletRequest request, Integer aId) {
-		Article article = arts.getDetail(aId);
-		request.setAttribute("article", article);
-		return "article/detail";
+		Article article = arts.getDetail(aId);        // 根据文章ID获取文章
+		
+		if (article.getArticleType() == ArticleType.HTML) {
+			System.out.println("HTML");
+			request.setAttribute("article", article);
+			return "article/detail";
+		} else {
+			System.out.println("Image");
+			Gson gson = new Gson();
+			article.setImgList(gson.fromJson(article.getContent(), List.class));
+			request.setAttribute("article", article);
+			return "article/imgdetail";
+		}
+		
 	}
 	
 	

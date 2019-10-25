@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.lzh.cms.entity.Article;
+import com.lzh.cms.entity.Links;
 
 /**
  * @author LZH
@@ -24,10 +25,18 @@ public interface ArticleService {
 
 	/**
 	 *  获取最新文章
-	 * @param num      显示多少天条数据
+	 * @param num      显示多少条数据
 	 * @return
 	 */
 	List<Article> getNewArticle(int num);
+	
+	/**
+	 * 	获取友情链接
+	 * @param num      显示多少条数据
+	 * @return
+	 */
+	List<Links> getFriendLinks(int num);
+	
 	
 	/**
 	 *	管理文章(管理员)

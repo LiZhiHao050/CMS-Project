@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.lzh.cms.entity.Article;
+import com.lzh.cms.entity.Links;
 import com.lzh.cms.entity.Tag;
 
 /**
@@ -30,6 +31,10 @@ public interface ArticleMapper {
 
 	// 获取最新文章
 	List<Article> getNewArticle(int num);
+	
+	// 获取友情链接
+	@Select("SELECT id, title, url, created, updated FROM cms_links LIMIT #{value}")
+	List<Links> getFriendLinks(int num);
 	
 	// 根据文章ID回显
 	Article findArtById(Integer id);

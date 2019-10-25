@@ -11,14 +11,14 @@
 	content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="/resource/css/bootstrap.min.css">
-	<script src="${pageContext.request.contextPath}/resource/js/jquery-3.2.1.js"></script>
+<script src="${pageContext.request.contextPath}/resource/js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="/resource/js/bootstrap.min.js"></script>
 </head>
 <body>  
 <div class="container">
 		
 		<dl>
-		   <dt><a href="javascript:window.close()">关闭窗口</a></dt>
+		    <dt><a href="javascript:window.close()">关闭窗口</a></dt>
 			<dt>
 				${article.title}<br>
 				${article.tags}
@@ -35,7 +35,7 @@
 				</form>
 			</div>
 				<hr>
-				评论数量：${article.commentCnt }
+				评论数量：${article.commentCnt}
 			</dd>
 			<dd><div id="commentList"></div></dd>
 			
@@ -45,37 +45,36 @@
 </div>
 <script type="text/javascript">
 
-
-
-	/* 
+	// 获取评论列表
 	$(function(){
-		$("#commentList").load("/commnent/getlist?articleId=${article.id}" );
-	}); */
+		$("#commentList").load("/comment/getComList?articleId=${article.id}");
+	});
+	
+	
 	
 	function commnent(){
 		
-		var retext=$("[name='content']").val();
+		var retext = $("[name='content']").val();
 		//alert(retext)
-		var id=${article.id}
+		var id = ${article.id}
 		//alert(id)
-		if(retext!=""){
+		if(retext != ""){
 		$.ajax({ 
 			type:"post",
 			data:{content:retext,articleId:id},
-			url:"/commnent/post",
-			success:function(msg){
-				if(msg=="success"){ 
-					alert("发表成功") 
-					$("#commentList").load("/commnent/getlist?articleId=${article.id}" );
-					history.go(0)
-					//location.href="getDetail" 
-				}else{
-					alert(msg)
+			url:"/comment/addComment",
+			success:function(res){
+				if(res.result == 1){ 
+					alert("发表成功!");
+					$("#commentList").load("/comment/getComList?articleId=${article.id}" );
+					history.go(0);
+				} else {
+					alert(res.message);
 				}
 			}
 		})
 		}else{
-			alert("请输入评论内容")
+			alert("请输入评论内容");
 		}
 	}
 </script>

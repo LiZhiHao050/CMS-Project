@@ -11,6 +11,10 @@
 		<result column="channel_id" property="channelId"/>
 		<result column="category_id" property="categoryId"/>
 		<result column="user_id" property="userId"/>
+		<result column="articleType" property="articleType" 
+		   typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+		   jdbcType="INTEGER" javaType="com.lzh.cms.comons.ArticleType"/>     <!-- 文章类型转换 -->
+		<result column="user_id" property="userId"/>
 		<association property="user" column="user_id" 
 		   select="com.lzh.cms.dao.UserMapper.findUserById" />
 	    <association property="channel" column="channel_id" 
@@ -26,8 +30,10 @@
 	
 	<!-- 发布文章(添加) -->	
 	<insert id="publish"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		INSERT INTO cms_article(title,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt)
-		  values(#{title},#{content},#{picture},#{channelId},#{categoryId},#{userId},0,0,0,0,now(),now(),0)
+		INSERT INTO cms_article(title,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt,articleType)
+		  values(#{title},#{content},#{picture},#{channelId},#{categoryId},#{userId},0,0,0,0,now(),now(),0,
+		  #{articleType, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,
+		   jdbcType=INTEGER, javaType=com.lzh.cms.comons.ArticleType})
 	</insert>
 	
 	

@@ -2,6 +2,9 @@ package com.lzh.cms.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.lzh.cms.comons.ArticleType;
 
 /**
  * @author LZH
@@ -36,7 +39,12 @@ public class Article implements Serializable {
 	private Date created;
 	private Date updated;
 	private Integer commentCnt;
-
+	
+	private ArticleType articleType = ArticleType.HTML;  // 文章类型类,默认值为HTML
+	
+	private List<ImageBean> imgList;                     // 接收上传多个图片的集合
+	
+	
 	/**
 	 * @return the id
 	 */
@@ -293,7 +301,35 @@ public class Article implements Serializable {
 		this.tags = tags;
 	}
 
+	/**
+	 * @return the articleType
+	 */
+	public ArticleType getArticleType() {
+		return articleType;
+	}
+
+	/**
+	 * @param articleType the articleType to set
+	 */
+	public void setArticleType(ArticleType articleType) {
+		this.articleType = articleType;
+	}
 	
+
+	/**
+	 * @return the imgList
+	 */
+	public List<ImageBean> getImgList() {
+		return imgList;
+	}
+
+	/**
+	 * @param imgList the imgList to set
+	 */
+	public void setImgList(List<ImageBean> imgList) {
+		this.imgList = imgList;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -303,7 +339,7 @@ public class Article implements Serializable {
 				+ ", channelId=" + channelId + ", channel=" + channel + ", categoryId=" + categoryId + ", category="
 				+ category + ", userId=" + userId + ", user=" + user + ", tags=" + tags + ", hits=" + hits + ", hot="
 				+ hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated
-				+ ", commentCnt=" + commentCnt + "]";
+				+ ", commentCnt=" + commentCnt + ", articleType=" + articleType + ", imgList=" + imgList + "]";
 	}
 
 	/*

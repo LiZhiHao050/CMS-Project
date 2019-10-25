@@ -191,5 +191,16 @@ public class AdminController {
 	}
 	
 	
+	/**
+	 * 	管理友情链接
+	 * @return
+	 */
+	@RequestMapping("managerLinks")
+	public String managerLinks(Model model, @RequestParam(defaultValue="1") Integer pageNum,
+			@RequestParam(defaultValue="") String name) {
+		
+		
+		return "admin/links/list";
+	}
 }
 
