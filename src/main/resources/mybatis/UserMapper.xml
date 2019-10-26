@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.lzh.cms.dao.UserMapper">
+<mapper namespace="com.lizhihao.cms.dao.UserMapper">
 	
 	<!-- 创建文章Map -->
 	<resultMap type="article" id="articleMapper">
@@ -13,14 +13,14 @@
 		<result column="user_id" property="userId"/>
 		<result column="articleType" property="articleType" 
 		   typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
-		   jdbcType="INTEGER" javaType="com.lzh.cms.comons.ArticleType"/>     <!-- 文章类型转换 -->
+		   jdbcType="INTEGER" javaType="com.lizhihao.cms.comons.ArticleType"/>     <!-- 文章类型转换 -->
 		<result column="user_id" property="userId"/>
 		<association property="user" column="user_id" 
-		   select="com.lzh.cms.dao.UserMapper.findUserById" />
+		   select="com.lizhihao.cms.dao.UserMapper.findUserById" />
 	    <association property="channel" column="channel_id" 
-		   select="com.lzh.cms.dao.ChannelMapper.findChannelById" />
+		   select="com.lizhihao.cms.dao.ChannelMapper.findChannelById" />
 		<association property="category" column="category_id" 
-		   select="com.lzh.cms.dao.CategoryMapper.findCatById" />
+		   select="com.lizhihao.cms.dao.CategoryMapper.findCatById" />
 	</resultMap>
 	
 	<!--  -->
@@ -33,7 +33,7 @@
 		INSERT INTO cms_article(title,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt,articleType)
 		  values(#{title},#{content},#{picture},#{channelId},#{categoryId},#{userId},0,0,0,0,now(),now(),0,
 		  #{articleType, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,
-		   jdbcType=INTEGER, javaType=com.lzh.cms.comons.ArticleType})
+		   jdbcType=INTEGER, javaType=com.lizhihao.cms.comons.ArticleType})
 	</insert>
 	
 	

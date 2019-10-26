@@ -5,8 +5,8 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lzh.cms.dao.CommentMapper;
-import com.lzh.cms.entity.Comment;
+import com.lizhihao.cms.dao.CommentMapper;
+import com.lizhihao.cms.entity.Comment;
 
 /**
  * @author LZH

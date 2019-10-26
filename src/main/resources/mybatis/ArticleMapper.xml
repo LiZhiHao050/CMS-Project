@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lzh.cms.dao.ArticleMapper">
+<mapper namespace="com.lizhihao.cms.dao.ArticleMapper">
 
 	<resultMap type="article" id="articleMap">
 		<id column="id" property="id"/>
@@ -12,13 +12,13 @@
 		<result column="user_id" property="userId"/>
 		<result column="articleType" property="articleType"
 			typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
-		    jdbcType="INTEGER" javaType="com.lzh.cms.comons.ArticleType"/>
+		    jdbcType="INTEGER" javaType="com.lizhihao.cms.comons.ArticleType"/>
 		<association property="user" column="user_id" 
-		   select="com.lzh.cms.dao.UserMapper.findUserById" />
+		   select="com.lizhihao.cms.dao.UserMapper.findUserById" />
 	    <association property="channel" column="channel_id" 
-		   select="com.lzh.cms.dao.ChannelMapper.findChannelById" />
+		   select="com.lizhihao.cms.dao.ChannelMapper.findChannelById" />
 		<association property="category" column="category_id" 
-		   select="com.lzh.cms.dao.CategoryMapper.findCatById" />
+		   select="com.lizhihao.cms.dao.CategoryMapper.findCatById" />
 		<association property="tags" column="id" 
 		   select="getTagsByArtId" />
 	</resultMap>

@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="com.lzh.cms.dao.CommentMapper">
+<mapper namespace="com.lizhihao.cms.dao.CommentMapper">
 	
 	<resultMap type="comment" id="commentMap">
 		<association property="user" column="userId"
-			select="com.lzh.cms.dao.UserMapper.findUserById" />
+			select="com.lizhihao.cms.dao.UserMapper.findUserById" />
 	</resultMap>
 	
 	

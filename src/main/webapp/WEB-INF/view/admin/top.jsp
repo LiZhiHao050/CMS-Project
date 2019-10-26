@@ -24,13 +24,17 @@
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link" href="#" id="messagesDropdown" role="button"  aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-envelope fa-fw"></i>
             <span class="badge badge-danger">7</span>
+            <i class="fas fa-envelope fa-fw">
+            	<img src="/pic/mgs.png" width="25" height="25">
+            </i>
           </a>
         </li>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-fw"></i>
+            <i class="fas fa-user-circle fa-fw">
+            	<img src="/pic/admin.png" width="25" height="25">
+            </i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="/index">返回网站</a>
