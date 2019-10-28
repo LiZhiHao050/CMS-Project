@@ -48,7 +48,8 @@ public class ArticleController {
 	@RequestMapping("getDetail")
 	public String getDetail(HttpServletRequest request, Integer aId) {
 		Article article = arts.getDetail(aId);        // 根据文章ID获取文章
-		
+		int res = arts.updateHits(aId);
+		System.out.println("增加点击量:" +res);
 		if (article.getArticleType() == ArticleType.HTML) {
 			System.out.println("HTML");
 			request.setAttribute("article", article);

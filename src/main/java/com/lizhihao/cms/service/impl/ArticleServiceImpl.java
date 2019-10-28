@@ -82,6 +82,12 @@ public class ArticleServiceImpl implements ArticleService {
 		int res = am.setHot(status, artId);
 		return res;
 	}
+	
+	// 增加文章点击量
+	@Override
+	public int updateHits(Integer aId) {
+		return am.updateHits(aId);
+	}
 
 }
 

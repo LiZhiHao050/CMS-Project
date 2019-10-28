@@ -118,7 +118,7 @@
 						</ol>
 					</div>
 				</div>
-			   <div class="card">
+			    <div class="card">
 				   <div class="card-header">友情链接</div>
 				   <div class="card-body">
 					   <ol>
@@ -127,6 +127,24 @@
 						   	</c:forEach>
 					   </ol>
 				   </div>
+				</div>
+				<div class="card">
+					<div class="card-header">专题栏目</div>
+					<div class="card-body">
+						<ol>
+						<c:forEach items="${special}" var="special">
+				   			${special.title}
+				     		<ol>
+					    		<c:forEach items="${special.articleList}" var="article">
+						      		<li class="text-truncate text-center">
+						      		<a href="javascript:toDetail(${article.id })">${article.title}</a>
+						      		</li>
+					    		</c:forEach>
+				     		</ol>
+				     		<br>
+						</c:forEach>
+						</ol>
+					</div>
 				</div>
 			</div>
 		</div>

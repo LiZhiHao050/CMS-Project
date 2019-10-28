@@ -29,10 +29,16 @@
 			<dd><ul class="pagination"><li class="page-item">${adjStr}</li></ul></dd>
 			
 			<dd><div>
+				<!-- 登录才能显示评论框 -->
+				<c:if test="${sessionScope.SESSION_USER_KEY.username != null}">
 				<form action="">
 					<input type="text" name="content">
 					<input type="button" value="评论" onclick="commnent()">
 				</form>
+				</c:if>
+				<c:if test="${sessionScope.SESSION_USER_KEY.username == null}">
+					您还没有登录,不能评论
+				</c:if>
 			</div>
 				<hr>
 				评论数量：${article.commentCnt}

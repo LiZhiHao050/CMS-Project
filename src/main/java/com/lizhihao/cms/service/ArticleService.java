@@ -64,5 +64,12 @@ public interface ArticleService {
 	 */
 	int setHot(Integer status, Integer artId);
 	
+	/**
+	 * 	增加文章点击量
+	 * @param aId
+	 * @return
+	 */
+	int updateHits(Integer aId);
+	
 }
 

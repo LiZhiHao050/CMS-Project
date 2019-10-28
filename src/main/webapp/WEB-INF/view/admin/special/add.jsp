@@ -12,7 +12,7 @@
 		<input name="title" id="title"/>
 		<br/>
 		<label>摘要</label>
-		<textarea rows="10" cols="100" name="digest" id="digest"></textarea>
+		<textarea rows="10" cols="50" name="digest" id="digest"></textarea>
 		<br/>
 		<input type="button" value="提交" onclick="addata()"> 
 		

@@ -65,6 +65,14 @@ public interface ArticleMapper {
 	// 修改文章删除中间表数据
 	@Delete("DELETE FROM cms_article_tag_middle WHERE aid = #{value}")
 	void delArtTags(Integer id);
+
+	// 根据专题ID获取文章
+	@Select("SELECT a.id, a.title, a.created FROM cms_article a JOIN cms_special_article sa "
+			+ " ON a.id = sa.aid WHERE sa.sid = #{value}")
+	List<Article> getArtBySpeId(Integer id);
+	
+	@Update("UPDATE cms_article SET hits = hits + 1 WHERE id = #{value}")
+	int updateHits(Integer aId);
 	
 	
 }

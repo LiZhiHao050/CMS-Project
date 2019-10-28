@@ -25,7 +25,7 @@ function add(){
 }
 
 function addArticle(id){
-	$("#content-wrapper").load("/special/detail?id="+id)
+	$("#content-wrapper").load("/special/getDetail?id="+id)
 }
 
 </script>
@@ -36,11 +36,13 @@ function addArticle(id){
 <div class="container-fluid">
 
 	<div>
-	     后台管理/文章管理/专题管理
+	 	 后台管理/文章管理/专题管理
 	     <br/>
+	     <center><h1>专题管理</h1></center>
 	<button type="button" class="btn btn-info" onclick="add()">添加专题</button>
 	</div>
-
+	<br/>
+	
 	<table class="table table-sm  table-hover table-bordered">
 		<thead class="thead-light">
 			<tr align="center">
@@ -56,7 +58,6 @@ function addArticle(id){
 				<td>
 					<button type="button" class="btn btn-info" onclick="addArticle(${special.id})">追加文章</button> 
 				    <button type="button" class="btn btn-info" onclick="modify(${special.id})">修改专题</button> 
-				
 				</td>
 			</tr>
 
