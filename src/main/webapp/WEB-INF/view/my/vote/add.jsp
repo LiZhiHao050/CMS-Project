@@ -59,16 +59,13 @@ function publish(){
 			url:"/vote/push",
 			success:function(obj){
 				if(obj){
-					alert("发布成功")
+					alert("发布成功");
 					$('#center').load("/vote/list");
 				}else{
-					alert("发布失败")
+					alert("发布失败");
 				}
 				
 			}
-			
-			
-			
 		})
 	
 /* 	

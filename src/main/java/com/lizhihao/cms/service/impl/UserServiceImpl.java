@@ -13,7 +13,7 @@ import com.lizhihao.cms.entity.Article;
 import com.lizhihao.cms.entity.Tag;
 import com.lizhihao.cms.entity.User;
 import com.lizhihao.cms.service.UserService;
-import com.lzh.utils.MD5Utils;
+import com.lizhihao.utils.MD5Utils;
 
 /**
  * @author LZH

@@ -8,7 +8,7 @@ package com.lizhihao.cms.comons;
 
 public enum ArticleType {
 	
-	HTML,IMAGE;
+	HTML,IMAGE,VOTE;
 	
 }
 

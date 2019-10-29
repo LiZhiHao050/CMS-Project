@@ -88,6 +88,13 @@ public class ArticleServiceImpl implements ArticleService {
 	public int updateHits(Integer aId) {
 		return am.updateHits(aId);
 	}
+	
+	// 通过文章ID查找文章
+	@Override
+	public Article findArtById(Integer id) {
+		Article findArtById = am.findArtById(id);
+		return findArtById;
+	}
 
 }
 

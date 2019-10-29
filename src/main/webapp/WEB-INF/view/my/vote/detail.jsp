@@ -49,7 +49,7 @@
 				var data = $("#form").serialize();
 				$.post("/vote/vote",data,function(obj){
 					if(obj){
-						alert("恭喜您，投票成功了");
+						alert("投票成功");
 						history.go(0)
 					}else{
 						alert("很遺憾，投票失敗，請稍後再試");

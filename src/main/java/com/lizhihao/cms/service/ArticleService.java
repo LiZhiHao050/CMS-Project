@@ -22,7 +22,14 @@ public interface ArticleService {
 	
 	// 获取热门文章
 	PageInfo<Article> getHotArticle(Integer pageNum);
-
+	
+	/**
+	 * 通过文章ID查找文章
+	 * @param id
+	 * @return
+	 */
+	Article findArtById(Integer id);
+	
 	/**
 	 *  获取最新文章
 	 * @param num      显示多少条数据

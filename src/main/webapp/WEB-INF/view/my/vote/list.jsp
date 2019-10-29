@@ -11,7 +11,7 @@
 
 function myopen(id){
 	// alert(id)
-	window.open("/vote/getVote?arId="+id,"_blank");
+	window.open("/article/getDetail?aId="+id, "_blank");
 	
 }
 
