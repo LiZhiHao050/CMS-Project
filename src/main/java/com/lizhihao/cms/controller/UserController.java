@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.lizhihao.cms.comons.ArticleType;
+import com.lizhihao.cms.comons.ResultMsg;
 import com.lizhihao.cms.comons.UserConst;
 import com.lizhihao.cms.entity.Article;
 import com.lizhihao.cms.entity.ImageBean;
@@ -379,13 +380,38 @@ public class UserController {
 	}
 	
 	
+	/**
+	 * 	跳转到个人设置页面
+	 * @return
+	 */
+	@RequestMapping("optionUser")
+	public String optionUser(HttpSession session, Model model) {
+		User loginUser = (User) session.getAttribute(UserConst.SESSION_USER_KEY);
+		model.addAttribute("user", loginUser);
+		return "my/option";
+	}
 	
 	
+	@PostMapping("options")
+	@ResponseBody
+	public ResultMsg option(User user) {
+		System.out.println("Option");
+		int res = us.option(user);
+		
+		if (res > 0) {
+			return new ResultMsg(1, "处理成功", null);
+		} else {
+			return new ResultMsg(0, "处理失败", null);
+		}
+	}
 	
 	
-	
-	
-	
+	@RequestMapping("updateSession")
+	public String updateSession(HttpSession session, String name) {
+		User user = us.findByName(name);
+		session.setAttribute(UserConst.SESSION_USER_KEY, user);
+		return "redirect:home";
+	}
 	
 	
 }

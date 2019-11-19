@@ -63,5 +63,14 @@ public interface UserService {
 	 */
 	public int updateArt(Article article);
 
+	/**
+	 * 	个人设置
+	 * @param user
+	 * @return
+	 */
+	public int option(User user);
+	
+	
+	public User findByName(String name);
 }
 

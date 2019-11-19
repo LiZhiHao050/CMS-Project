@@ -122,5 +122,19 @@ public class UserServiceImpl implements UserService {
 		return res;
 	}
 
+	// 个人设置
+	@Override
+	public int option(User user) {
+		int res = um.option(user);
+		return res;
+	}
+	
+	
+	@Override
+	public User findByName(String name) {
+		User user = um.findByName(name);
+		return user;
+	}
+
 }
 

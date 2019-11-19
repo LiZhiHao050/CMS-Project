@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.lizhihao.cms.entity.Special;
 
@@ -29,7 +30,7 @@ public interface SpecialMapper {
 	@Select("SELECT * FROM cms_special WHERE id = #{value}")
 	public Special getSpeById(Integer id);
 	
-	// 添加中间表数据
+	// 在专题内添加文章
 	@Insert("INSERT INTO cms_special_article (sid,aid) VALUES (#{sid},#{aid})")
 	public int addSpeArt(@Param("sid")Integer speId, @Param("aid")Integer artId);
 	
@@ -40,6 +41,10 @@ public interface SpecialMapper {
 	// 计算专题数量
 	@Select("SELECT COUNT(sid) FROM cms_special_article WHERE sid = #{value}")
 	public int countArtNum(Integer id);
+	
+	// 修改专题
+	@Update("UPDATE cms_special SET title=#{title},digest=#{digest} WHERE id=#{id}")
+	public int modify(Special special);
 	
 }
 

@@ -48,6 +48,14 @@ public interface SpecialService {
 	 * @return
 	 */
 	public int delAtrticle(Integer specId, Integer articleId);
+
+	
+	/**
+	 * 	修改专题
+	 * @param special       专题
+	 * @return
+	 */
+	public int modify(Special special);
 	
 
 }

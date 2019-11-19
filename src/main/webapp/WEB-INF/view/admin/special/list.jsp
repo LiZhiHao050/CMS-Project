@@ -13,20 +13,22 @@
 <script type="text/javascript" src="/resource/js/cms.js"></script>
 <script type="text/javascript">
 
-
-
-//查看文章详情
-function toDetail(id){
-	$("#content-wrapper").load("/admin/getArticle?id="+id)
+	//查看文章详情
+	function toDetail(id){
+		$("#content-wrapper").load("/admin/getArticle?id="+id)
+		
+	}
+	function add(){
+		$("#content-wrapper").load("/special/add")
+	}
 	
-}
-function add(){
-	$("#content-wrapper").load("/special/add")
-}
-
-function addArticle(id){
-	$("#content-wrapper").load("/special/getDetail?id="+id)
-}
+	function addArticle(id){
+		$("#content-wrapper").load("/special/getDetail?id="+id)
+	}
+	
+	function modify(id) {
+		$("#content-wrapper").load("/special/modify?id="+id)
+	}
 
 </script>
 

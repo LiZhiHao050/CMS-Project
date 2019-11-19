@@ -40,5 +40,8 @@ public interface UserMapper {
 	// 用户修改文章
 	int updateArt(Article article);
 	
+	// 个人设置
+	int option(User user);
+	
 }
 

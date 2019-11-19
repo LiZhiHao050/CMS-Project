@@ -45,7 +45,7 @@ public class SpecialServiceImpl implements SpecialService {
 	// 添加专题
 	@Override
 	public int addSpecial(Special special) {
-		return specialMapper.addSpecial(special);
+		return specialMapper.addSpecial(special);     // 调用方法添加
 	}
 	
 	
@@ -58,7 +58,7 @@ public class SpecialServiceImpl implements SpecialService {
 	}
 	
 	
-	// 添加专题
+	// 添加专题文章
 	@Override
 	public int addAtrticle(Integer specId, Integer articleId) {
 		return specialMapper.addSpeArt(specId, articleId);
@@ -69,6 +69,13 @@ public class SpecialServiceImpl implements SpecialService {
 	@Override
 	public int delAtrticle(Integer specId, Integer articleId) {
 		return specialMapper.delSpeArt(specId, articleId);
+	}
+
+	
+	// 修改专题
+	@Override
+	public int modify(Special special) {
+		return specialMapper.modify(special);
 	}
 	
 

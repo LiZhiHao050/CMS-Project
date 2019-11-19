@@ -100,13 +100,14 @@ public class IndexController {
 		List<Special> special = new ArrayList<Special>();
 		
 		List<Special> speList = spes.getSpecial(1).getList();
+		int i = 0;                                                     // 循环5次以显示前5条文章
 		for (Special spe : speList) {
+			if (i > 5) {
+				break;
+			}
 			Special newSpe = spes.getSpeById(spe.getId());
 			special.add(newSpe);
-		}
-		
-		for (Special a : speList) {
-			System.out.println("111" + a);
+			i++;
 		}
 		
 		requset.setAttribute("lasts", newArts);

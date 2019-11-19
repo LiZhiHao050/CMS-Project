@@ -54,6 +54,16 @@
 			category_id=#{categoryId},updated=now()
 		WHERE id = #{id}
 	</update>
-
+	
+	
+	<!-- 用户个人设置 -->
+	<update id="option">
+		UPDATE cms_user SET
+			nickname=#{nickname},birthday=#{birthday},gender=#{gender},
+			mobile=#{mobile},mail=#{mail},address=#{address},constellation=#{constellation},
+			motto=#{motto}
+		WHERE id = #{id}
+	</update>
+	
 </mapper>  
   

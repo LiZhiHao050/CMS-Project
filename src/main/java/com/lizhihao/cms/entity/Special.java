@@ -13,20 +13,22 @@ public class Special implements Serializable {
 
 	private static final long serialVersionUID = 8237665390593606845L;
 
-	private Integer id;
-	private String title;
-	private String digest;
-	private Date created;
+	private Integer id;            // 专题ID
+	private String title;          // 专题标题
+	private String digest;         // 专题摘要
+	private Date created;          // 创建时间
 
 	private Integer articleNum; // 该专题文章数量
 
 	private List<Article> articleList;
 
+	// 无参构造
 	public Special() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	// 有参构造
 	public Special(Integer id, String title, String digest, Date created, List<Article> articleList) {
 		super();
 		this.id = id;
@@ -36,6 +38,7 @@ public class Special implements Serializable {
 		this.articleList = articleList;
 	}
 
+	// get和set方法
 	/**
 	 * @return the id
 	 */
@@ -134,7 +137,7 @@ public class Special implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 * 重写hashcode
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -147,7 +150,7 @@ public class Special implements Serializable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 * 重写equals
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

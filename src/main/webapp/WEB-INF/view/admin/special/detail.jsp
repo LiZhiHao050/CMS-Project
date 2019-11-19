@@ -41,12 +41,11 @@
 	
 	<label>添加新的文章</label> <input name="articleId" id="articleId" placeholder="文章ID"/>  
 	   <input type="button" onclick="addArticle()" value="添加文章">
-	
 	<br/>
 	
 	<script type="text/javascript">
-		
-	   function addArticle(){
+		// 添加文章
+	   	function addArticle(){
 		   
 		   $.post("/special/addArticle",{specId:${special.id},articleId:$("#articleId").val()},function(msg){
 				if(msg.result == 1){
@@ -55,9 +54,10 @@
 				} else {
 					alert(msg.message);
 				}
-			},"json")
-	   }
-	
+			},"json");
+	   	};
+		
+		// 移出文章
 		function remove(specialId,articleId){
 			
 			$.post("/special/delArticle",{specId:specialId,articleId:articleId},function(msg){
@@ -67,14 +67,14 @@
 				}else{
 					alert(msg.message);
 				}
-			},"json")
+			},"json");
 			
 		}
 		
+		// 返回
 		function goBack(){
 			$("#content-wrapper").load("/special/managerSpecial");
 		}
 	</script>
-			
 
 </div>

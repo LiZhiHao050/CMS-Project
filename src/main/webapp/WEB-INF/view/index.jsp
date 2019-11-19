@@ -130,12 +130,13 @@
 				   </div>
 				</div>
 				<br>
-				<div class="card">
-					<div class="card-header">专题栏目</div>
+				<div class="card"><!-- 专题显示 -->
+					<div class="card-header">专题</div>
 					<div class="card-body">
 						<ol>
 						<c:forEach items="${special}" var="special">
-				   			${special.title}
+				   			<b>${special.title}</b><br>
+				   			${special.digest}
 				     		<ol>
 					    		<c:forEach items="${special.articleList}" var="article">
 						      		<li class="text-truncate text-center">

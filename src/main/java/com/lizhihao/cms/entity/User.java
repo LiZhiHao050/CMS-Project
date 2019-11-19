@@ -2,6 +2,8 @@ package com.lizhihao.cms.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * @author LZH
  * @Date 2019年10月16日
@@ -13,15 +15,25 @@ public class User {
 	private Integer id;
 	private String username;
 	private String password;
-	private String nickname;
-	private Date birthday;
+	private String nickname;       // 昵称
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date birthday;         // 生日
 	private int gender;
 	private int locked;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date create_time;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date update_time;
 	private String url;
 	private int score;
 	private int role;
+	
+	private String mobile;         // 手机号
+	private String mail;           // 邮箱
+	private String address;        // 地址
+	private String constellation;  // 星座
+	private String motto;          // 座右铭
+	
 
 	public User() {
 		super();
@@ -201,10 +213,79 @@ public class User {
 	public void setRole(int role) {
 		this.role = role;
 	}
+	
+	/**
+	 * @return the mobile
+	 */
+	public String getMobile() {
+		return mobile;
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @param mobile the mobile to set
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	/**
+	 * @return the mail
+	 */
+	public String getMail() {
+		return mail;
+	}
+
+	/**
+	 * @param mail the mail to set
+	 */
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * @return the constellation
+	 */
+	public String getConstellation() {
+		return constellation;
+	}
+
+	/**
+	 * @param constellation the constellation to set
+	 */
+	public void setConstellation(String constellation) {
+		this.constellation = constellation;
+	}
+
+	/**
+	 * @return the motto
+	 */
+	public String getMotto() {
+		return motto;
+	}
+
+	/**
+	 * @param motto the motto to set
+	 */
+	public void setMotto(String motto) {
+		this.motto = motto;
+	}
+
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -212,7 +293,8 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", nickname=" + nickname
 				+ ", birthday=" + birthday + ", gender=" + gender + ", locked=" + locked + ", create_time="
 				+ create_time + ", update_time=" + update_time + ", url=" + url + ", score=" + score + ", role=" + role
-				+ "]";
+				+ ", mobile=" + mobile + ", mail=" + mail + ", address=" + address + ", constellation=" + constellation
+				+ ", motto=" + motto + "]";
 	}
 
 	/*

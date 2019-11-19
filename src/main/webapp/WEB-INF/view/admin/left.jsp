@@ -19,8 +19,8 @@
 	<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data="待开发">
 			<i class="fas fa-fw fa-chart-area"></i> <span>分类管理</span>
 	</a></li>
-	<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data="待开发">
-			<i class="fas fa-fw fa-table"></i> <span>系统设置</span>
+	<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data="/user/optionUser">
+			<i class="fas fa-fw fa-table"></i> <span>个人设置</span>
 	</a></li>
 	<li class="nav-item"><a class="nav-link" href="javascript:void(0)" data="/admin/managerLinks">
 			<i class="fas fa-fw fa-table"></i> <span>友情链接</span>
