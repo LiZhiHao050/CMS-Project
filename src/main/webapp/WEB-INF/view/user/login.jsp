@@ -88,6 +88,7 @@
 	<script type="text/javascript">
 		
 		$(function() {
+			
 			$("#valiateform").validate({
 				//校验规则
 				rules : {

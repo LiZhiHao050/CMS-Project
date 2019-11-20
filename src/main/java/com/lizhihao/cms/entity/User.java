@@ -1,5 +1,6 @@
 package com.lizhihao.cms.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,8 +11,10 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 用户
  */
 
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = 2706880201962310242L;
+	
 	private Integer id;
 	private String username;
 	private String password;

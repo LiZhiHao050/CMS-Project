@@ -62,7 +62,12 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("login")
-	public String toLogin() {
+	public String toLogin(HttpSession session) {
+		Object login = session.getAttribute(UserConst.SESSION_USER_KEY);
+		if (login != null) {                // 如果用户已经登录
+			return "redirect:../index";     // 跳转到首页
+		}
+		
 		return "user/login";
 	}
 	
@@ -146,7 +151,7 @@ public class UserController {
 	 */
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute(UserConst.SESSION_USER_KEY);
+		session.removeAttribute(UserConst.SESSION_USER_KEY);          // 清除该域
 		return "user/login";
 	}
 	

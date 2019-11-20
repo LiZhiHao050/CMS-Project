@@ -73,6 +73,7 @@
 			<tx:method name="*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
+	
 	<!-- 7、配置aop -->
 	<aop:config>
 		<!-- 配置切点表达式 -->
@@ -92,5 +93,11 @@
 		<property name="basePackage" value="com.lizhihao.cms.dao"></property>
 
 	</bean>
-
+	
+	<!-- 引入Redis配置文件 -->
+	<import resource="spring-redis.xml"/>
+	
+	<!-- 引入Kafka配置文件 -->
+	<import resource="spring-kafka-*.xml"/>
+	
 </beans>

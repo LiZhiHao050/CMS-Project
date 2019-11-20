@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<script type="text/javascript" src="../../../resource/js/jquery-3.2.1.js"></script>
+
 <style>
 .mlink{
     display: block;
@@ -20,11 +22,11 @@
 <ul class="nav">
 
 	<!--栏目下所有 分类 -->
-	<li class="nav-item  list-group-item-success"><a class="nav-link"
+	<li class="nav-item " id="0"><a class="nav-link"
 		href="/index?chnId=${chnId}">全部</a></li>
 	<c:forEach items="${categories}" var="catygory">
 
-		<li class="nav-item "><a class="nav-link"
+		<li class="nav-item " id="${catygory.id}"><a class="nav-link"
 			href="/index?chnId=${chnId}&catId=${catygory.id}">${catygory.name }</a></li>
 	</c:forEach>
 
@@ -89,5 +91,11 @@
 		//在新窗口打开文章的详情J
 		window.open("/article/getDetail?aId=" + id, "_blank")
 	}
+	
+	
+	// 底色改变
+	$(function(){
+		$("#"+${catId}).attr("class","nav-item  list-group-item-success");
+	})
 
 </script> 

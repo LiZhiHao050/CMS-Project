@@ -3,6 +3,8 @@ package com.lizhihao.cms.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -30,6 +32,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	ArticleMapper am;
 	
+	// 注入Redis模板对象
+	@Autowired
+	private RedisTemplate<String, User> redisTemplate;
+	
 	// 注册
 	@Override
 	public int register(User user) {
@@ -46,10 +52,14 @@ public class UserServiceImpl implements UserService {
 	// 登录
 	@Override
 	public User login(User user) {
-		String pwd = MD5Utils.md5(user.getPassword());      // 解析密码
+		String pwd = MD5Utils.md5(user.getPassword());      // 使用MD5解析密码
 		User login = um.findByName(user.getUsername());     // 通过用户名获取用户
 		
 		if (login != null && pwd.equals(login.getPassword())) {    // 判断用户名与密码是否为一个用户
+			
+			SetOperations<String, User> set = redisTemplate.opsForSet();    // 获取Redis Set操作对象
+			set.add(login.getId().toString(), login);                       // 将登录用户存入Set
+			
 			return login;
 		}
 		return null;
