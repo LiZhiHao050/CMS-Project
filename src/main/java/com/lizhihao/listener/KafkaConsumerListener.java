@@ -11,7 +11,7 @@ import com.lizhihao.cms.entity.Article;
 /**
  * @author LZH
  * @Date 2019年11月20日
- * 
+ * 	消费者
  */
 
 @Component
