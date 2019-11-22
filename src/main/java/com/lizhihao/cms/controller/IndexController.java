@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alibaba.druid.sql.PagerUtils;
 import com.github.pagehelper.PageInfo;
+import com.lizhihao.cms.comons.PageUtils;
 import com.lizhihao.cms.entity.Article;
 import com.lizhihao.cms.entity.Category;
 import com.lizhihao.cms.entity.Channel;
@@ -49,6 +51,7 @@ public class IndexController {
 	 * @param chnId       频道id
 	 * @param catId       分类id
 	 * @param pageNum     页码
+	 * @param key     	  Elasticsearch模糊查询关键字
 	 * @return
 	 * @throws InterruptedException 
 	 */
@@ -56,7 +59,8 @@ public class IndexController {
 	public String index(HttpServletRequest requset,
 			@RequestParam(defaultValue="0") Integer chnId,
 			@RequestParam(defaultValue="0") Integer catId,
-			@RequestParam(defaultValue="1") Integer pageNum) throws InterruptedException {
+			@RequestParam(defaultValue="1") Integer pageNum,
+			String key) throws InterruptedException {
 		
 		// 获取所有的频道
 		Thread t1 = new Thread() {
@@ -75,14 +79,19 @@ public class IndexController {
 					requset.setAttribute("categories", categories);
 					PageInfo<Article> articles = arts.getArtList(chnId, catId, pageNum);    // 获取分类下的文章列表
 					requset.setAttribute("articles", articles);
-					/*PageUtils.page(requset, "/index?chnId="+chnId+"&catId=" + catId, 1, articles.getList(),
-					(long)articles.getSize(), articles.getPageNum());*/
 				}
 			};
 		} else {                                                       // 否则即为首页
 			t2 = new Thread() {
 				public void run() {
-					PageInfo<Article> hotArticle = arts.getHotArticle(pageNum);// 获取热门文章放置到首页
+					PageInfo<Article> hotArticle = null;
+					if (key == null) {
+						// 查询键为空则获取文章
+						hotArticle = arts.getHotArticle(pageNum);// 获取热门文章放置到首页
+					} else {
+						// 查询Elasticsearch中的文章
+						hotArticle = arts.elGetList(pageNum, key);
+					}
 					requset.setAttribute("articles", hotArticle);
 				}
 			};
@@ -115,7 +124,7 @@ public class IndexController {
 		requset.setAttribute("special", special);
 		
 		
-		
+		requset.setAttribute("key", key);
 		requset.setAttribute("chnId", chnId);                          // 频道id
 		requset.setAttribute("catId", catId);                          // 分类id
 		

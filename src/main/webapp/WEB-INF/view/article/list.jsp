@@ -22,18 +22,16 @@
 					<h5 class="mt-0 mb-1"><small>  ${a.user.username}  &nbsp;  <fmt:formatDate value="${a.created }" pattern="yyyy-MM-dd"/> </small></h5>
 					
 				</div>
-				
-				
-				</li>
-				<hr>
+			</li>
+			<hr>
 		</c:forEach>
 		<div>
 			${pageStr}
-			<a href="index?chnId=${chnId}&catId=${catId}&pageNum=1">首页</a>&nbsp;
-			<a href="index?chnId=${chnId}&catId=${catId}&pageNum=${articles.prePage == 0 ? 1 : articles.prePage}">上一页</a>
-			&emsp;${articles.lastPage == 0 ? 0 : articles.pageNum}/${articles.lastPage}&emsp;
-			<a href="index?chnId=${chnId}&catId=${catId}&pageNum=${articles.nextPage == 0 ? articles.lastPage : articles.nextPage}">下一页</a>&nbsp;
-			<a href="index?chnId=${chnId}&catId=${catId}&pageNum=${articles.lastPage}">尾页</a>
+			<a href="index?chnId=${chnId}&catId=${catId}&key=${key}&pageNum=1">首页</a>&nbsp;
+			<a href="index?chnId=${chnId}&catId=${catId}&key=${key}&pageNum=${articles.prePage == 0 ? 1 : articles.prePage}">上一页</a>
+			&emsp;${articles.pages == 0 ? 0 : articles.pageNum}/${articles.pages}&emsp;
+			<a href="index?chnId=${chnId}&catId=${catId}&key=${key}&pageNum=${articles.nextPage == 0 ? articles.pages : articles.nextPage}">下一页</a>&nbsp;
+			<a href="index?chnId=${chnId}&catId=${catId}&key=${key}&pageNum=${articles.pages}">尾页</a>
 		</div>
 	</ul> 
 

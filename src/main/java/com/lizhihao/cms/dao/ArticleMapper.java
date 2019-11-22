@@ -74,6 +74,9 @@ public interface ArticleMapper {
 	@Update("UPDATE cms_article SET hits = hits + 1 WHERE id = #{value}")
 	int updateHits(Integer aId);
 	
+	// 获取所有数据
+	List<Article> getAll();
+	
 	
 }
 

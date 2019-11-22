@@ -174,11 +174,13 @@ public class UserController {
 	 */
 	@RequestMapping("myArticles")
 	public String myArticles(HttpServletRequest request, 
-			@RequestParam(defaultValue="1")Integer pageNum) {
+			@RequestParam(defaultValue="1")Integer pageNum, String search) {
 		
 		User loginUser = (User) request.getSession().getAttribute(UserConst.SESSION_USER_KEY);  // 获取登录用户的信息
-		PageInfo<Article> articles = us.myArticles(pageNum, loginUser.getId());
+		PageInfo<Article> articles = us.myArticles(pageNum, loginUser.getId(), search);
+		
 		request.setAttribute("articles", articles);
+		request.setAttribute("search", search);
 		
 		return "/my/list";
 	}

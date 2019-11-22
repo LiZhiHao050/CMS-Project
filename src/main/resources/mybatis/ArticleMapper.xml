@@ -65,7 +65,7 @@
 		WHERE hot > 0
 		AND deleted = 0
 		AND status = 1
-		ORDER BY hot DESC,created DESC
+		ORDER BY hot DESC,updated DESC
 	</select>
 	
 	<!-- 获取最新文章 -->
@@ -75,7 +75,7 @@
 		FROM cms_article
 		WHERE deleted = 0
 		AND status = 1
-		ORDER BY created DESC limit #{value}
+		ORDER BY updated DESC limit #{value}
 	</select>
 	
 	
@@ -96,5 +96,15 @@
 	<insert id="addTag" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO cms_tag (tagname) VALUES (#{tagname})
 	</insert>
+	
+	
+	<!-- 获取所有文章 -->
+	<select id="getAll" resultMap="articleMap">
+		SELECT id,title,picture,channel_id,category_id,user_id,
+		        hits,hot,status,created,updated,commentCnt,articleType
+		FROM cms_article
+		WHERE deleted = 0
+		AND status = 1
+	</select>
 	
 </mapper>  

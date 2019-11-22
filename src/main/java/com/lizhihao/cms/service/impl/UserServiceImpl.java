@@ -109,9 +109,9 @@ public class UserServiceImpl implements UserService {
 	
 	// 查询文章列表
 	@Override
-	public PageInfo<Article> myArticles(Integer pageNum, Integer userId) {
+	public PageInfo<Article> myArticles(Integer pageNum, Integer userId, String search) {
 		PageHelper.startPage(pageNum, 8);
-		List<Article> artList = um.myArticles(userId);
+		List<Article> artList = um.myArticles(userId, search);
 		return new PageInfo<>(artList);
 	}
 
@@ -144,6 +144,12 @@ public class UserServiceImpl implements UserService {
 	public User findByName(String name) {
 		User user = um.findByName(name);
 		return user;
+	}
+
+	// 通过Kafka发布文章
+	@Override
+	public void publishFromKafka(Article article) {
+		um.publishFromKafka(article);
 	}
 
 }

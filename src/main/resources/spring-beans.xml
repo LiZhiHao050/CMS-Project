@@ -100,4 +100,7 @@
 	<!-- 引入Kafka配置文件 -->
 	<import resource="spring-kafka-*.xml"/>
 	
+	<!-- 引入Elasticsearch -->
+	<import resource="spring-es.xml"/>
+	
 </beans>

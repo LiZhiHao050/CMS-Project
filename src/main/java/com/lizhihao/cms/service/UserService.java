@@ -47,7 +47,7 @@ public interface UserService {
 	 * @param userId    用户ID
 	 * @return
 	 */
-	public PageInfo<Article> myArticles(Integer pageNum, Integer userId);
+	public PageInfo<Article> myArticles(Integer pageNum, Integer userId, String search);
 
 	/**
 	 * 	用户删除文章(逻辑删除)
@@ -72,5 +72,12 @@ public interface UserService {
 	
 	
 	public User findByName(String name);
+
+	/**
+	 * 	通过Kafka发布文章
+	 * @param article       文章
+	 */
+	public void publishFromKafka(Article article);
+	
 }
 

@@ -3,6 +3,7 @@ package com.lizhihao.cms.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -31,7 +32,7 @@ public interface UserMapper {
 	int publish(Article article);
 
 	// 用户查询文章列表
-	List<Article> myArticles(Integer userId);
+	List<Article> myArticles(@Param("userId")Integer userId, @Param("search")String search);
 	
 	// 用户删除文章(逻辑删除)
 	@Update("UPDATE cms_article SET deleted = 1 WHERE id = #{value}")
@@ -42,6 +43,9 @@ public interface UserMapper {
 	
 	// 个人设置
 	int option(User user);
+	
+	// 通过Kafka添加文章
+	void publishFromKafka(Article article);
 	
 }
 

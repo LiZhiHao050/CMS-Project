@@ -50,7 +50,9 @@
 		<hr>
 	</c:forEach> --%>
 	
-	
+	<form action="/user/myArticles" method="post">
+	<input type="text" name="search" placeholder="模糊搜索" value="${search}">
+	<input type="submit" value="查询"><br><br>
 	<table>
 	  <c:forEach items="${articles.list}" var="article">
 	  	<tr style="border-bottom: 2px solid #e5e5e5;">
@@ -71,6 +73,7 @@
 	 	</tr>
 	</c:forEach>
 	</table>
+	</form>
 	
 	<input type="button" onclick="page(1)" value="首页">&nbsp;
 	<input type="button" onclick="page(${articles.prePage == 0 ? 1 : articles.prePage})" value="上一页">

@@ -1,17 +1,25 @@
 package com.lizhihao.cms.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
+import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lizhihao.cms.comons.ESUtils;
 import com.lizhihao.cms.dao.ArticleMapper;
 import com.lizhihao.cms.entity.Article;
+import com.lizhihao.cms.entity.Category;
+import com.lizhihao.cms.entity.Channel;
 import com.lizhihao.cms.entity.Links;
+import com.lizhihao.cms.entity.User;
 import com.lizhihao.cms.service.ArticleService;
 
 /**
@@ -29,6 +37,10 @@ public class ArticleServiceImpl implements ArticleService {
 	// 注入Redis模板
 	@Autowired
 	private RedisTemplate<String, Article> redisTemplate;
+	
+	// 注入ES模板
+	@Autowired
+	private ElasticsearchTemplate esTemplate;
 
 	
 	// 获取文章列表
@@ -52,11 +64,21 @@ public class ArticleServiceImpl implements ArticleService {
 		ListOperations<String, Article> opsForList = redisTemplate.opsForList();
 		
 		PageInfo<Article> pageInfo = null;
+		List<Article> list = null;
+		
 		
 		if (redisTemplate.hasKey("HotArticle")) {
 			// 存在热门文章
-			List<Article> list = opsForList.range("HotArticle", (pageNum - 1) * 5, pageNum * 10 - 1);
+			list = opsForList.range("HotArticle", (pageNum - 1) * 5, pageNum * 5 - 1);
 			pageInfo = new PageInfo<>(list);
+			
+			double size = opsForList.size("HotArticle");  // 获取页码
+			System.out.println("页码值:" + size);
+			pageInfo.setPageNum(pageNum);
+			pageInfo.setPrePage(pageNum - 1);
+			pageInfo.setNextPage(pageNum + 1);
+			pageInfo.setPages((int)Math.ceil(size/5));
+			// Start Here 求出总页数
 		} else {
 			// 不存在热门文章,从数据库查询所有的热门文章
 			List<Article> hotArticle = am.getHotArticle();
@@ -115,6 +137,14 @@ public class ArticleServiceImpl implements ArticleService {
 		// 判断修改的状态
 		if (res > 0) {
 			redisTemplate.delete("NewArticle");      // 清除Redis中的最新/热门文章数据
+			
+			Article art = am.findArtById(artId);     // 通过ID获取文章
+			
+			// 将文章加入到ES中
+			IndexQuery query = new IndexQuery();
+			query.setId(art.getId().toString());
+			query.setObject(art);
+			esTemplate.index(query);
 		}
 		
 		return res;
@@ -126,7 +156,7 @@ public class ArticleServiceImpl implements ArticleService {
 		int res = am.setHot(status, artId);
 		// 判断修改的状态
 		if (res > 0) {
-			redisTemplate.delete("HotArticle");      // 清除Redis中的热门文章数据
+			redisTemplate.delete("HotArticle");      // 清除Redis中的热门文章数据,刷新列表
 		}
 		
 		return res;
@@ -143,6 +173,35 @@ public class ArticleServiceImpl implements ArticleService {
 	public Article findArtById(Integer id) {
 		Article findArtById = am.findArtById(id);
 		return findArtById;
+	}
+	
+	// 查询ES文章
+	@Override
+	public PageInfo<Article> elGetList(Integer pageNum, String key) {
+		// 获取实体类的.Class
+		Class[] clazzes = new Class[] {User.class, Channel.class, Category.class};
+		
+		AggregatedPage<?> selectObjects = ESUtils.selectObjects(esTemplate, Article.class, Arrays.asList(clazzes),pageNum - 1, 5, "id", 
+				new String[] {"title"}, key);
+		
+		List<Article> list = (List<Article>) selectObjects.getContent();
+		System.out.println(list);
+		PageInfo<Article> pageInfo = new PageInfo<Article>(list);
+		// 设置总页数
+		System.out.println("Value:"+Math.ceil((double)selectObjects.getTotalElements()/5));
+		pageInfo.setPages((int)Math.ceil((double)selectObjects.getTotalElements()/5));
+		// 设置当前页
+		pageInfo.setPrePage(pageNum - 1);
+		pageInfo.setNextPage(pageNum + 1);
+		pageInfo.setPageNum(pageNum);
+		
+		return pageInfo;
+	}
+
+	// 获取所有文章
+	@Override
+	public List<Article> getAll() {
+		return am.getAll();
 	}
 
 }

@@ -23,6 +23,7 @@ public interface ArticleService {
 	// 获取热门文章
 	PageInfo<Article> getHotArticle(Integer pageNum);
 	
+	
 	/**
 	 * 通过文章ID查找文章
 	 * @param id
@@ -77,6 +78,20 @@ public interface ArticleService {
 	 * @return
 	 */
 	int updateHits(Integer aId);
+	
+	/**
+	 * 	查询Elasticsearch中的文章
+	 * @param pageNum         页码
+	 * @param key             查询键
+	 * @return
+	 */
+	PageInfo<Article> elGetList(Integer pageNum, String key);
+	
+	/**
+	 * 	查看所有已审核且未删除的文章
+	 * @return
+	 */
+	List<Article> getAll();
 	
 }
 

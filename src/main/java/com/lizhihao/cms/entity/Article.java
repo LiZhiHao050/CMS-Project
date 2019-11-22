@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import com.lizhihao.cms.comons.ArticleType;
 
 /**
@@ -12,10 +15,12 @@ import com.lizhihao.cms.comons.ArticleType;
  *  定义文章类
  */
 
+@Document(indexName="cms",type="article")
 public class Article implements Serializable {
 
 	private static final long serialVersionUID = 8885558194798598334L;
-
+	
+	@Id
 	private Integer id;
 	private String title;
 	private String content;

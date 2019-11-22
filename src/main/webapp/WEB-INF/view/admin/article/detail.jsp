@@ -29,7 +29,7 @@
 		$.post("/admin/sethot",{status:status,artId:'${article.id}'},function(obj){
 			if(obj.result == 1){
 				alert("操作成功!")
-				$("#content-wrapper").load("/admin/managerArts");
+				//$("#content-wrapper").load("/admin/managerArts");
 			} else {
 				alert(obj.message);
 			}

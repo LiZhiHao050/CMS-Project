@@ -23,7 +23,7 @@
 		   select="com.lizhihao.cms.dao.CategoryMapper.findCatById" />
 	</resultMap>
 	
-	<!--  -->
+	<!-- 查询 -->
 	<select id="findUserById" resultType="user">
 		SELECT * FROM cms_user where id = #{value}
 	</select>
@@ -42,8 +42,12 @@
 		SELECT id,title,picture,user_id,channel_id,category_id,
 		        hits,hot,status,created,updated,commentCnt
 		FROM cms_article
-			WHERE user_id = #{value}
+			WHERE user_id = #{userId}
 			AND deleted = 0
+		<if test="search != null and search != ''">
+			AND title like concat('%',#{search},'%')
+		</if>	
+		
 	</select>
 	
 	
@@ -64,6 +68,15 @@
 			motto=#{motto}
 		WHERE id = #{id}
 	</update>
+	
+	
+	<!-- Kafka发布文章 -->	
+	<insert id="publishFromKafka"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO cms_article(title,content,picture,channel_id,category_id,user_id,hits,hot,status,deleted,created,updated,commentCnt,articleType)
+		  values(#{title},#{content},#{picture},#{channelId},#{categoryId},#{userId},#{hits},#{hot},0,0,#{created},now(),0,
+		  #{articleType, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,
+		   jdbcType=INTEGER, javaType=com.lizhihao.cms.comons.ArticleType})
+	</insert>
 	
 </mapper>  
   
