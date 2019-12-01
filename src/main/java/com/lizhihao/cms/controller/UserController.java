@@ -332,7 +332,8 @@ public class UserController {
 		String today = sdf.format(new Date());
 		
 		// 生成路径
-		String path = "Z:/CMS_Workspace/lizhihao-cms/src/main/webapp/resource/pic/" + today;
+		String path = "Z:/CMS_Workspace/lizhihao-cms/src/main/webapp/resource/pic" + today;
+//		String path = "/opt/CMS_Pic/" + today;
 		
 		File menu = new File(path);
 		if (!menu.exists()) {        // 如果文件不存在则创建文件
@@ -370,7 +371,8 @@ public class UserController {
 		String today = sdf.format(new Date());
 		
 		// 生成路径
-		String path = "Z:/CMS_Workspace/lizhihao-cms/src/main/webapp/resource/pic/" + today;
+		String path = "Z:/CMS_Workspace/lizhihao-cms/src/main/webapp/resource/pic" + today;
+//		String path = "/opt/CMS_Pic/" + today;
 		
 		File menu = new File(path);
 		if (!menu.exists()) {        // 如果文件不存在则创建文件

@@ -39,9 +39,6 @@ public class OperaES {
 		Article p = new Article();
 		IndexQuery query = new IndexQuery();
 		
-		new IndexQueryBuilder().build();
-		
-		
 		// 封装数据
 		query.setId(p.getId().toString());
 		query.setObject(p);

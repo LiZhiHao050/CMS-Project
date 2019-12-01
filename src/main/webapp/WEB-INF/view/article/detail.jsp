@@ -18,7 +18,7 @@
 <div class="container">
 		
 		<dl>
-		    <dt><a href="javascript:window.close()">关闭窗口</a></dt>
+		    <dt><a href="javascript:window.close()">返回</a></dt>
 			<dt>
 				${article.title}<br>
 				${article.tags}
